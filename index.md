@@ -3,16 +3,11 @@ layout: default
 title: "Arianwen's Geas Mapper"
 ---
 
-### Get Started
+## Arianwen's Geas Mapper
+---
 
-Start by [creating a new post](http://jekyllrb.com/docs/posts/) one of the categories listed in `_config.yml`. It will appear in the navigation on the left once recompiled. Or use the supplied script to make creating pages easier:
+A Mudlet mapping package for use with [Geas](http://www.geas.de). Provides both map creation tools and simple step-following functionality.
 
-```bash
-ruby bin/jekyll-page "Some Page Title" ref
-```
+Map included in package, will likely move to a remotely-sourced map in the future.
 
-#### Don't Forget
-
-- Add your own content to this page (i.e. `index.md`) and change the `title`
-- Change `title` and `subtitle` defined in `config.yml` for your site
-- Set the `baseurl` in `_config.yml` for your repo if deploying to GitHub pages
+**Requires Mudlet 3.0.1 or above.**
