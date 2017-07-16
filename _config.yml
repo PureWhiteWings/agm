@@ -1,6 +1,6 @@
 # Site title and subtitle. This is used in _includes/header.html
 title: 'Arianwen''s Geas Mapper'
-subtitle: 'A Geas mapper for Mudlet 3.0+'
+subtitle: 'A Geas mapper package for Mudlet'
 
 # if you wish to integrate disqus on pages set your shortname here
 disqus_shortname: ''
