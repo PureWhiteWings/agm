@@ -814,7 +814,7 @@ if agm.autoexits then                                -- Automatically connect ex
   end
 end
 
-displayCoords()</script>
+--agm_displayCoords()</script>
                     <triggerType>0</triggerType>
                     <conditonLineDelta>8</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
@@ -901,7 +901,7 @@ end</script>
                 </Alias>
                 <Alias isActive="yes" isFolder="no">
                     <name>Set position manually</name>
-                    <script>setMapPosition(tonumber(matches[2]))</script>
+                    <script>agm_setMapPosition(tonumber(matches[2]))</script>
                     <command></command>
                     <packageName></packageName>
                     <regex>^asetpos\s+(\d+)$</regex>
@@ -1072,7 +1072,7 @@ exitmap = {
                     <packageName></packageName>
                     <script>function agm_loadmap()
 
-  local loadedOK = loadMap(getMudletHomeDir()..&quot;/agm/ArianwenGeasMap.dat&quot;)
+  local loadedOK = loadMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
   if not loadedOK then
     local issueURL = [[http://github.com/PureWhiteWings/agm/issues]]
     cecho(&quot;&lt;red&gt;Error - agm_loadmap()\n&quot;)
@@ -1396,7 +1396,7 @@ end</script>
                     <packageName></packageName>
                     <script>function agm_setPositionViaMenu(_, roomNumber)
 
-  setMapPosition(roomNumber)
+  agm_setMapPosition(roomNumber)
 
 end</script>
                     <eventHandlerList>
@@ -1414,7 +1414,7 @@ end</script>
   agm.roomName = getRoomName(roomNumber)
 
   centerview(roomNumber)
-  displayCoords()
+  --agm_displayCoords()
 
 end</script>
                     <eventHandlerList/>
