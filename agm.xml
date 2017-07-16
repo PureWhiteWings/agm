@@ -2,14 +2,14 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
     <TriggerPackage>
-        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-            <name>Mapper</name>
+        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>Arianwen's Geas Mapper</name>
             <script></script>
             <triggerType>0</triggerType>
-            <conditonLineDelta>3</conditonLineDelta>
+            <conditonLineDelta>0</conditonLineDelta>
             <mStayOpen>0</mStayOpen>
             <mCommand></mCommand>
-            <packageName></packageName>
+            <packageName>Arianwen's Geas Mapper</packageName>
             <mFgColor>#ff0000</mFgColor>
             <mBgColor>#ffff00</mBgColor>
             <mSoundFile></mSoundFile>
@@ -17,11 +17,11 @@
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList/>
             <regexCodePropertyList/>
-            <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                <name>Markpoints</name>
+            <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>Mapper</name>
                 <script></script>
                 <triggerType>0</triggerType>
-                <conditonLineDelta>0</conditonLineDelta>
+                <conditonLineDelta>3</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
                 <mCommand></mCommand>
                 <packageName></packageName>
@@ -32,14 +32,11 @@
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList/>
                 <regexCodePropertyList/>
-                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                    <name>Elor entrance</name>
-                    <script>mapper.roomNumber = 1216
-mapper.area = getRoomArea(mapper.roomNumber)
-mapper.x, mapper.y, mapper.z = getRoomCoordinates(mapper.roomNumber)
-centerview(mapper.roomNumber)</script>
+                <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>Markpoints</name>
+                    <script></script>
                     <triggerType>0</triggerType>
-                    <conditonLineDelta>2</conditonLineDelta>
+                    <conditonLineDelta>0</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
                     <mCommand></mCommand>
                     <packageName></packageName>
@@ -48,21 +45,39 @@ centerview(mapper.roomNumber)</script>
                     <mSoundFile></mSoundFile>
                     <colorTriggerFgColor>#000000</colorTriggerFgColor>
                     <colorTriggerBgColor>#000000</colorTriggerBgColor>
-                    <regexCodeList>
-                        <string> Several man-sized stones stand</string>
-                        <string> Several big ancient stones rise</string>
-                        <string> Runes are inscribed</string>
-                    </regexCodeList>
-                    <regexCodePropertyList>
-                        <integer>2</integer>
-                        <integer>2</integer>
-                        <integer>2</integer>
-                    </regexCodePropertyList>
-                </Trigger>
-            </TriggerGroup>
-            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                <name>Moved</name>
-                <script>------------------------------------------------------------------------
+                    <regexCodeList/>
+                    <regexCodePropertyList/>
+                    <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                        <name>Elor entrance</name>
+                        <script>agm.roomNumber = 1216
+agm.area = getRoomArea(agm.roomNumber)
+agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
+centerview(agm.roomNumber)</script>
+                        <triggerType>0</triggerType>
+                        <conditonLineDelta>2</conditonLineDelta>
+                        <mStayOpen>0</mStayOpen>
+                        <mCommand></mCommand>
+                        <packageName></packageName>
+                        <mFgColor>#ff0000</mFgColor>
+                        <mBgColor>#ffff00</mBgColor>
+                        <mSoundFile></mSoundFile>
+                        <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                        <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                        <regexCodeList>
+                            <string> Several man-sized stones stand</string>
+                            <string> Several big ancient stones rise</string>
+                            <string> Runes are inscribed</string>
+                        </regexCodeList>
+                        <regexCodePropertyList>
+                            <integer>2</integer>
+                            <integer>2</integer>
+                            <integer>2</integer>
+                        </regexCodePropertyList>
+                    </Trigger>
+                </TriggerGroup>
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>Moved</name>
+                    <script>------------------------------------------------------------------------
 --     Process exit string for later, ready local tables for use      --
 ------------------------------------------------------------------------
 
@@ -88,23 +103,23 @@ clearWindow(&quot;debugWindow&quot;)                                            
 --      Set up information about the previous and current rooms       --
 ------------------------------------------------------------------------
 
-mapper.previousRoomExits  = getRoomExits(mapper.roomNumber)      -- Table of exits from the last room, for getting current room number
+agm.previousRoomExits  = getRoomExits(agm.roomNumber)      -- Table of exits from the last room, for getting current room number
 
-if mapper.roomNumber ~= -1 then                  -- If we knew the last room number, store info about the last room
-  mapper.previousRoomNumber = mapper.roomNumber
-  mapper.previousRoomName   = mapper.roomName
-  mapper.previousArea       = mapper.area
+if agm.roomNumber ~= -1 then                  -- If we knew the last room number, store info about the last room
+  agm.previousRoomNumber = agm.roomNumber
+  agm.previousRoomName   = agm.roomName
+  agm.previousArea       = agm.area
 else                                             -- If we didn't, store -1 and &quot;Unknown&quot; to indicate this
-  mapper.previousRoomNumber = -1
-  mapper.previousRoomName   = &quot;Unknown&quot;
-  mapper.previousArea   = -1
+  agm.previousRoomNumber = -1
+  agm.previousRoomName   = &quot;Unknown&quot;
+  agm.previousArea   = -1
 end
 
-mapper.roomNumber = -1                           -- Set current room number to -1, since we don't know it yet!
-mapper.roomName = multimatches[2][2]             -- Store captured room name
+agm.roomNumber = -1                           -- Set current room number to -1, since we don't know it yet!
+agm.roomName = multimatches[2][2]             -- Store captured room name
 
-if string.find(mapper.roomName,&quot;%.&quot;) then        -- Strip end period, just in case of a double-period error
-  mapper.roomName = string.cut(mapper.roomName,string.find(mapper.roomName,&quot;%.&quot;)-1)
+if string.find(agm.roomName,&quot;%.&quot;) then        -- Strip end period, just in case of a double-period error
+  agm.roomName = string.cut(agm.roomName,string.find(agm.roomName,&quot;%.&quot;)-1)
 end
 
 
@@ -116,14 +131,14 @@ end
 ------------------------------------------------------------------------
 
 cecho(&quot;debugWindow&quot;,&quot;\n&lt;turquoise&gt;Moved &lt;white&gt;&quot;..directionTraveled..&quot;&lt;turquoise&gt;/&lt;white&gt;&quot;..directionTraveledAlt..&quot;&lt;turquoise&gt;.Searching for room by name...\n&quot;)
-local roomSearchTable = searchRoom(mapper.roomName)      -- Search to see if there's only one known room with that name.
-if table.size(roomSearchTable) == 1 and not mapper.autocreate then           -- If so, set our position to it.
+local roomSearchTable = searchRoom(agm.roomName)      -- Search to see if there's only one known room with that name.
+if table.size(roomSearchTable) == 1 and not agm.autocreate then           -- If so, set our position to it.
   cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Single room found! Setting position!\n&quot;)
   local tempRoomID = table.maxn(roomSearchTable)
   centerview(tempRoomID)
-  mapper.roomNumber = tempRoomID
-  mapper.area = getRoomArea(tempRoomID)
-  mapper.x, mapper.y, mapper.z = getRoomCoordinates(mapper.roomNumber)
+  agm.roomNumber = tempRoomID
+  agm.area = getRoomArea(tempRoomID)
+  agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
 end
 
 
@@ -134,27 +149,27 @@ end
 --     Search for current room number from previous room's exits      --
 ------------------------------------------------------------------------
 
-if mapper.previousRoomExits and mapper.roomNumber == -1 then
-  --for k,v in pairs(mapper.previousRoomExits) do
+if agm.previousRoomExits and agm.roomNumber == -1 then
+  --for k,v in pairs(agm.previousRoomExits) do
   --  cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Does &lt;white&gt;&quot;..k..&quot;&lt;yellow&gt; = &lt;white&gt;&quot;..directionTraveledAlt..&quot;&lt;yellow&gt;? &quot;)
   --  if k == directionTraveledAlt then
   --    cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Yes!\nExit to this room found! Setting position!\n&quot;)
-  --    mapper.roomNumber = v
-  --    centerview(mapper.roomNumber)
-  --    mapper.area = getRoomArea(mapper.roomNumber)
-  --    mapper.x, mapper.y, mapper.z = getRoomCoordinates(mapper.roomNumber)
+  --    agm.roomNumber = v
+  --    centerview(agm.roomNumber)
+  --    agm.area = getRoomArea(agm.roomNumber)
+  --    agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
   --    break
   --  else
   --    cecho(&quot;debugWindow&quot;,&quot;&lt;red&gt;No.\n&quot;)
   --  end
   --end
   cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Room name not unique or not found!\n&lt;turquoise&gt;Searching previous room for a &lt;white&gt;&quot;..directionTraveledAlt..&quot; &lt;turquoise&gt;exit...\n&quot;)
-  if mapper.previousRoomExits[directionTraveledAlt] then
+  if agm.previousRoomExits[directionTraveledAlt] then
     cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Exit to this room found! Setting position!\n&quot;)
-    mapper.roomNumber = mapper.previousRoomExits[directionTraveledAlt]
-    centerview(mapper.roomNumber)
-    mapper.area = getRoomArea(mapper.roomNumber)
-    mapper.x, mapper.y, mapper.z = getRoomCoordinates(mapper.roomNumber)
+    agm.roomNumber = agm.previousRoomExits[directionTraveledAlt]
+    centerview(agm.roomNumber)
+    agm.area = getRoomArea(agm.roomNumber)
+    agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
   end
 end
 
@@ -166,15 +181,15 @@ end
 --     Search for room by coordinates if number not by room name      --
 ------------------------------------------------------------------------
 
-if mapper.roomNumber == -1 then
+if agm.roomNumber == -1 then
   cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;No valid exit found in previous room! Adjusting our coordinates and checking the map...\n&quot;)
-  mapper.x, mapper.y, mapper.z = adjustMapperCoordinates(mapper.x, mapper.y, mapper.z, directionTraveled)
-  local searchTable = getRoomsByPosition(mapper.area,mapper.x,mapper.y,mapper.z)
+  agm.x, agm.y, agm.z = adjustMapperCoordinates(agm.x, agm.y, agm.z, directionTraveled)
+  local searchTable = getRoomsByPosition(agm.area,agm.x,agm.y,agm.z)
   if table.size(searchTable) &gt; 0 then
     cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Room found at these coordinates! Setting position!\n&quot;)
-    mapper.roomNumber = searchTable[0]
-    mapper.area = getRoomArea(mapper.roomNumber)
-    centerview(mapper.roomNumber)
+    agm.roomNumber = searchTable[0]
+    agm.area = getRoomArea(agm.roomNumber)
+    centerview(agm.roomNumber)
   else
     cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Room not found at these coordinates, checking if automapper enabled...\n&quot;)
   end
@@ -188,10 +203,10 @@ end
 --      Room number never found, make new one or mark us as lost      --
 ------------------------------------------------------------------------
 
-if mapper.roomNumber == -1 then
-  if mapper.autocreate then
+if agm.roomNumber == -1 then
+  if agm.autocreate then
     cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Automapper enabled! Making new room...\n&quot;)
-    echo(&quot;\nMaking new room: &quot;..mapper.previousArea..&quot;, &quot;..mapper.x..&quot;, &quot;..mapper.y..&quot;, &quot;..mapper.z)
+    echo(&quot;\nMaking new room: &quot;..agm.previousArea..&quot;, &quot;..agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z)
     makeNewRoom = true
   else
     cecho(&quot;debugWindow&quot;,&quot;&lt;red&gt;Room not found, and not making new one! We're lost! D:&quot;)
@@ -203,516 +218,516 @@ end
 
 
 ------------------------------------------------------------------------
---           Generate mapper.roomExits from known exit info           --
+--           Generate agm.roomExits from known exit info           --
 ------------------------------------------------------------------------
 
-mapper.roomExits = {}                                       -- Clear the exit list entirely
-local knownRoomExits = getRoomExits(mapper.roomNumber)
+agm.roomExits = {}                                       -- Clear the exit list entirely
+local knownRoomExits = getRoomExits(agm.roomNumber)
 
-  for k,v in ipairs(exitTableClean) do    -- Generate list of exits in mapper.roomExits from exitTableClean
+  for k,v in ipairs(exitTableClean) do    -- Generate list of exits in agm.roomExits from exitTableClean
 
     if v == &quot;n&quot; then                                                                -- v is a short exit name, checking if v is &quot;n&quot;
-      mapper.roomExits[#mapper.roomExits+1] = {}                                    -- v is &quot;n&quot;, so make a new subtable entry in mapper.roomExits
-      local lastExit = #mapper.roomExits                                            -- lastExit holds the index of the latest entry in mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;north&quot;                                     -- Store the long name of the exit
-      mapper.roomExits[lastExit].short = &quot;n&quot;                                        -- Store the short name of the exit
-      mapper.roomExits[lastExit].altLong = &quot;north&quot;                                  -- Store the long altname - long exit name with &quot;up&quot; or &quot;down&quot; stripped out.
-      mapper.roomExits[lastExit].altShort = &quot;n&quot;                                     -- Store the short altname - short exit name with &quot;up&quot; or &quot;down&quot; stripped out.
+      agm.roomExits[#agm.roomExits+1] = {}                                    -- v is &quot;n&quot;, so make a new subtable entry in agm.roomExits
+      local lastExit = #agm.roomExits                                            -- lastExit holds the index of the latest entry in agm.roomExits
+      agm.roomExits[lastExit].long = &quot;north&quot;                                     -- Store the long name of the exit
+      agm.roomExits[lastExit].short = &quot;n&quot;                                        -- Store the short name of the exit
+      agm.roomExits[lastExit].altLong = &quot;north&quot;                                  -- Store the long altname - long exit name with &quot;up&quot; or &quot;down&quot; stripped out.
+      agm.roomExits[lastExit].altShort = &quot;n&quot;                                     -- Store the short altname - short exit name with &quot;up&quot; or &quot;down&quot; stripped out.
       if knownRoomExits then
         if knownRoomExits[&quot;north&quot;] then                                               -- If there is a known room exit to the north...
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]           -- Mark this exit as going to that room number...
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]           -- Mark this exit as going to that room number...
         end                                                                           -- And then move on
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then    -- Checking for &quot;[p]&quot; or &quot;[r]&quot; in equivalent exitTable entry...
-        mapper.roomExits[lastExit].road = true                                      -- If either found, mark this exit as a road
+        agm.roomExits[lastExit].road = true                                      -- If either found, mark this exit as a road
       else                                                                          -- But if we don't find either string...
-        mapper.roomExits[lastExit].road = false                                     -- Mark this exit as not being on a road
+        agm.roomExits[lastExit].road = false                                     -- Mark this exit as not being on a road
       end                                                                           -- Done with this ipair, let's start over on the next k
 
     elseif v == &quot;nu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northup&quot;
-      mapper.roomExits[lastExit].short = &quot;nu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;north&quot;
-      mapper.roomExits[lastExit].altShort = &quot;n&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northup&quot;
+      agm.roomExits[lastExit].short = &quot;nu&quot;
+      agm.roomExits[lastExit].altLong = &quot;north&quot;
+      agm.roomExits[lastExit].altShort = &quot;n&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;north&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;nd&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northdown&quot;
-      mapper.roomExits[lastExit].short = &quot;nd&quot;
-      mapper.roomExits[lastExit].altLong = &quot;north&quot;
-      mapper.roomExits[lastExit].altShort = &quot;n&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northdown&quot;
+      agm.roomExits[lastExit].short = &quot;nd&quot;
+      agm.roomExits[lastExit].altLong = &quot;north&quot;
+      agm.roomExits[lastExit].altShort = &quot;n&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;north&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;ne&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northeast&quot;
-      mapper.roomExits[lastExit].short = &quot;ne&quot;
-      mapper.roomExits[lastExit].altLong = &quot;northeast&quot;
-      mapper.roomExits[lastExit].altShort = &quot;ne&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northeast&quot;
+      agm.roomExits[lastExit].short = &quot;ne&quot;
+      agm.roomExits[lastExit].altLong = &quot;northeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;ne&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;northeast&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;neu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northeastup&quot;
-      mapper.roomExits[lastExit].short = &quot;neu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;northeast&quot;
-      mapper.roomExits[lastExit].altShort = &quot;ne&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northeastup&quot;
+      agm.roomExits[lastExit].short = &quot;neu&quot;
+      agm.roomExits[lastExit].altLong = &quot;northeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;ne&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;northeast&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;ned&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northeastdown&quot;
-      mapper.roomExits[lastExit].short = &quot;ned&quot;
-      mapper.roomExits[lastExit].altLong = &quot;northeast&quot;
-      mapper.roomExits[lastExit].altShort = &quot;ne&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northeastdown&quot;
+      agm.roomExits[lastExit].short = &quot;ned&quot;
+      agm.roomExits[lastExit].altLong = &quot;northeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;ne&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;northeast&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;e&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;east&quot;
-      mapper.roomExits[lastExit].short = &quot;e&quot;
-      mapper.roomExits[lastExit].altLong = &quot;east&quot;
-      mapper.roomExits[lastExit].altShort = &quot;e&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;east&quot;
+      agm.roomExits[lastExit].short = &quot;e&quot;
+      agm.roomExits[lastExit].altLong = &quot;east&quot;
+      agm.roomExits[lastExit].altShort = &quot;e&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;east&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;eu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;eastup&quot;
-      mapper.roomExits[lastExit].short = &quot;eu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;east&quot;
-      mapper.roomExits[lastExit].altShort = &quot;e&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;eastup&quot;
+      agm.roomExits[lastExit].short = &quot;eu&quot;
+      agm.roomExits[lastExit].altLong = &quot;east&quot;
+      agm.roomExits[lastExit].altShort = &quot;e&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;east&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;ed&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;eastdown&quot;
-      mapper.roomExits[lastExit].short = &quot;ed&quot;
-      mapper.roomExits[lastExit].altLong = &quot;east&quot;
-      mapper.roomExits[lastExit].altShort = &quot;e&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;eastdown&quot;
+      agm.roomExits[lastExit].short = &quot;ed&quot;
+      agm.roomExits[lastExit].altLong = &quot;east&quot;
+      agm.roomExits[lastExit].altShort = &quot;e&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;east&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;se&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southeast&quot;
-      mapper.roomExits[lastExit].short = &quot;se&quot;
-      mapper.roomExits[lastExit].altLong = &quot;southeast&quot;
-      mapper.roomExits[lastExit].altShort = &quot;se&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southeast&quot;
+      agm.roomExits[lastExit].short = &quot;se&quot;
+      agm.roomExits[lastExit].altLong = &quot;southeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;se&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;southast&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;seu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southeastup&quot;
-      mapper.roomExits[lastExit].short = &quot;seu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;southeast&quot;
-      mapper.roomExits[lastExit].altShort = &quot;se&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southeastup&quot;
+      agm.roomExits[lastExit].short = &quot;seu&quot;
+      agm.roomExits[lastExit].altLong = &quot;southeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;se&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;southast&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;sed&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southeastdown&quot;
-      mapper.roomExits[lastExit].short = &quot;sed&quot;
-      mapper.roomExits[lastExit].altLong = &quot;southeast&quot;
-      mapper.roomExits[lastExit].altShort = &quot;se&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southeastdown&quot;
+      agm.roomExits[lastExit].short = &quot;sed&quot;
+      agm.roomExits[lastExit].altLong = &quot;southeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;se&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;southast&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;s&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;south&quot;
-      mapper.roomExits[lastExit].short = &quot;s&quot;
-      mapper.roomExits[lastExit].altLong = &quot;south&quot;
-      mapper.roomExits[lastExit].altShort = &quot;s&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;south&quot;
+      agm.roomExits[lastExit].short = &quot;s&quot;
+      agm.roomExits[lastExit].altLong = &quot;south&quot;
+      agm.roomExits[lastExit].altShort = &quot;s&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;south&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;su&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southup&quot;
-      mapper.roomExits[lastExit].short = &quot;su&quot;
-      mapper.roomExits[lastExit].altLong = &quot;south&quot;
-      mapper.roomExits[lastExit].altShort = &quot;s&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southup&quot;
+      agm.roomExits[lastExit].short = &quot;su&quot;
+      agm.roomExits[lastExit].altLong = &quot;south&quot;
+      agm.roomExits[lastExit].altShort = &quot;s&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;south&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;sd&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southdown&quot;
-      mapper.roomExits[lastExit].short = &quot;sd&quot;
-      mapper.roomExits[lastExit].altLong = &quot;south&quot;
-      mapper.roomExits[lastExit].altShort = &quot;s&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southdown&quot;
+      agm.roomExits[lastExit].short = &quot;sd&quot;
+      agm.roomExits[lastExit].altLong = &quot;south&quot;
+      agm.roomExits[lastExit].altShort = &quot;s&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;south&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;sw&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southwest&quot;
-      mapper.roomExits[lastExit].short = &quot;sw&quot;
-      mapper.roomExits[lastExit].altLong = &quot;southwest&quot;
-      mapper.roomExits[lastExit].altShort = &quot;sw&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southwest&quot;
+      agm.roomExits[lastExit].short = &quot;sw&quot;
+      agm.roomExits[lastExit].altLong = &quot;southwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;sw&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;southwest&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;swu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southwestup&quot;
-      mapper.roomExits[lastExit].short = &quot;swu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;southwest&quot;
-      mapper.roomExits[lastExit].altShort = &quot;sw&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southwestup&quot;
+      agm.roomExits[lastExit].short = &quot;swu&quot;
+      agm.roomExits[lastExit].altLong = &quot;southwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;sw&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;southwest&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;swd&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;southwestdown&quot;
-      mapper.roomExits[lastExit].short = &quot;swd&quot;
-      mapper.roomExits[lastExit].altLong = &quot;southwest&quot;
-      mapper.roomExits[lastExit].altShort = &quot;sw&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southwestdown&quot;
+      agm.roomExits[lastExit].short = &quot;swd&quot;
+      agm.roomExits[lastExit].altLong = &quot;southwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;sw&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;southwest&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;w&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;west&quot;
-      mapper.roomExits[lastExit].short = &quot;w&quot;
-      mapper.roomExits[lastExit].altLong = &quot;west&quot;
-      mapper.roomExits[lastExit].altShort = &quot;w&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;west&quot;
+      agm.roomExits[lastExit].short = &quot;w&quot;
+      agm.roomExits[lastExit].altLong = &quot;west&quot;
+      agm.roomExits[lastExit].altShort = &quot;w&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;west&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;wu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;westup&quot;
-      mapper.roomExits[lastExit].short = &quot;wu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;west&quot;
-      mapper.roomExits[lastExit].altShort = &quot;w&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;westup&quot;
+      agm.roomExits[lastExit].short = &quot;wu&quot;
+      agm.roomExits[lastExit].altLong = &quot;west&quot;
+      agm.roomExits[lastExit].altShort = &quot;w&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;west&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;wd&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;westdown&quot;
-      mapper.roomExits[lastExit].short = &quot;wd&quot;
-      mapper.roomExits[lastExit].altLong = &quot;west&quot;
-      mapper.roomExits[lastExit].altShort = &quot;w&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;westdown&quot;
+      agm.roomExits[lastExit].short = &quot;wd&quot;
+      agm.roomExits[lastExit].altLong = &quot;west&quot;
+      agm.roomExits[lastExit].altShort = &quot;w&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;west&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;nw&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northwest&quot;
-      mapper.roomExits[lastExit].short = &quot;nw&quot;
-      mapper.roomExits[lastExit].altLong = &quot;northwest&quot;
-      mapper.roomExits[lastExit].altShort = &quot;nw&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northwest&quot;
+      agm.roomExits[lastExit].short = &quot;nw&quot;
+      agm.roomExits[lastExit].altLong = &quot;northwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;nw&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;northwest&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;nwu&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northwestup&quot;
-      mapper.roomExits[lastExit].short = &quot;nwu&quot;
-      mapper.roomExits[lastExit].altLong = &quot;northwest&quot;
-      mapper.roomExits[lastExit].altShort = &quot;nw&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northwestup&quot;
+      agm.roomExits[lastExit].short = &quot;nwu&quot;
+      agm.roomExits[lastExit].altLong = &quot;northwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;nw&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;northwest&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;nwd&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;northwestdown&quot;
-      mapper.roomExits[lastExit].short = &quot;nwd&quot;
-      mapper.roomExits[lastExit].altLong = &quot;northwest&quot;
-      mapper.roomExits[lastExit].altShort = &quot;nw&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northwestdown&quot;
+      agm.roomExits[lastExit].short = &quot;nwd&quot;
+      agm.roomExits[lastExit].altLong = &quot;northwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;nw&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;northwest&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;u&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;up&quot;
-      mapper.roomExits[lastExit].short = &quot;u&quot;
-      mapper.roomExits[lastExit].altLong = &quot;up&quot;
-      mapper.roomExits[lastExit].altShort = &quot;u&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;up&quot;
+      agm.roomExits[lastExit].short = &quot;u&quot;
+      agm.roomExits[lastExit].altLong = &quot;up&quot;
+      agm.roomExits[lastExit].altShort = &quot;u&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;up&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;up&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;up&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;d&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;down&quot;
-      mapper.roomExits[lastExit].short = &quot;d&quot;
-      mapper.roomExits[lastExit].altLong = &quot;down&quot;
-      mapper.roomExits[lastExit].altShort = &quot;d&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;down&quot;
+      agm.roomExits[lastExit].short = &quot;d&quot;
+      agm.roomExits[lastExit].altLong = &quot;down&quot;
+      agm.roomExits[lastExit].altShort = &quot;d&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;down&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;down&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;down&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;in&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;in&quot;
-      mapper.roomExits[lastExit].short = &quot;in&quot;
-      mapper.roomExits[lastExit].altLong = &quot;in&quot;
-      mapper.roomExits[lastExit].altShort = &quot;in&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;in&quot;
+      agm.roomExits[lastExit].short = &quot;in&quot;
+      agm.roomExits[lastExit].altLong = &quot;in&quot;
+      agm.roomExits[lastExit].altShort = &quot;in&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;in&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;in&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;in&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     elseif v == &quot;out&quot; then
-      mapper.roomExits[#mapper.roomExits+1] = {}
-      local lastExit = #mapper.roomExits
-      mapper.roomExits[lastExit].long = &quot;out&quot;
-      mapper.roomExits[lastExit].short = &quot;out&quot;
-      mapper.roomExits[lastExit].altLong = &quot;out&quot;
-      mapper.roomExits[lastExit].altShort = &quot;out&quot;
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;out&quot;
+      agm.roomExits[lastExit].short = &quot;out&quot;
+      agm.roomExits[lastExit].altLong = &quot;out&quot;
+      agm.roomExits[lastExit].altShort = &quot;out&quot;
       if knownRoomExits then
         if knownRoomExits[&quot;out&quot;] then
-          mapper.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;out&quot;]
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;out&quot;]
         end
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
-        mapper.roomExits[lastExit].road = true
+        agm.roomExits[lastExit].road = true
       else
-        mapper.roomExits[lastExit].road = false
+        agm.roomExits[lastExit].road = false
       end
 
     end
@@ -736,7 +751,7 @@ compass.sw:hide()
 compass.w:hide()
 compass.nw:hide()
 
-for k,v in ipairs(mapper.roomExits) do                                    -- Process each exit in mapper.roomExits
+for k,v in ipairs(agm.roomExits) do                                    -- Process each exit in agm.roomExits
   if v.road then                                                          -- Check if exit k is a road
     if v.short == &quot;n&quot; or v.short == &quot;nu&quot; or v.short == &quot;nd&quot; then          -- Check if exit k has &quot;n&quot; as a short exitname
       compass.n:show()
@@ -766,141 +781,159 @@ end
 --                       Automapping extra bits                       --
 ------------------------------------------------------------------------
 
-if mapper.autocreate then                               -- Set room colour by environment
+if agm.autocreate then                               -- Set room colour by environment
   if makeNewRoom then                                   -- Was the flag set to make a new room?
-    local createdRoom = jmaproom(mapper.previousArea, mapper.x, mapper.y, mapper.z)
-    mapper.roomNumber = createdRoom
-    mapper.area = getRoomArea(createdRoom)
+    local createdRoom = agm_maproom(agm.previousArea, agm.x, agm.y, agm.z)
+    agm.roomNumber = createdRoom
+    agm.area = getRoomArea(createdRoom)
   end
-  local loweredName = string.lower(mapper.roomName)     -- This guesses environment by room name - NOT ALWAYS ACCURATE
+  local loweredName = string.lower(agm.roomName)     -- This guesses environment by room name - NOT ALWAYS ACCURATE
   if string.find(multimatches[3][1],&quot;%[r%]&quot;) or string.find(multimatches[3][1],&quot;%[p%]&quot;) then
-    setRoomEnv(mapper.roomNumber,262)                   -- Dark cyan for roads and paths, always
+    setRoomEnv(agm.roomNumber,262)                   -- Dark cyan for roads and paths, always
   elseif string.find(loweredName,&quot;meadow&quot;) then
-    setRoomEnv(mapper.roomNumber,266)                   -- Light green for grasses and meadows
+    setRoomEnv(agm.roomNumber,266)                   -- Light green for grasses and meadows
   elseif string.find(loweredName,&quot;forest&quot;) then
-    setRoomEnv(mapper.roomNumber,258)                   -- Dark green for forests
+    setRoomEnv(agm.roomNumber,258)                   -- Dark green for forests
   elseif string.find(loweredName,&quot;sand&quot;) or string.find(loweredName,&quot;beach&quot;) or string.find(loweredName,&quot;coastline&quot;) then
-    setRoomEnv(mapper.roomNumber,267)                   -- Bright yellow for beaches
+    setRoomEnv(agm.roomNumber,267)                   -- Bright yellow for beaches
   elseif string.find(loweredName,&quot;tundra&quot;) then
-    setRoomEnv(mapper.roomNumber,259)                   -- Dark yellow for tundra
+    setRoomEnv(agm.roomNumber,259)                   -- Dark yellow for tundra
   elseif string.find(loweredName,&quot;tunnel&quot;) then
-    setRoomEnv(mapper.roomNumber,272)                   -- Dark grey for tunnels
+    setRoomEnv(agm.roomNumber,272)                   -- Dark grey for tunnels
   elseif string.find(loweredName,&quot;arctic&quot;) then
-    setRoomEnv(mapper.roomNumber,271)                   -- White for arctic
+    setRoomEnv(agm.roomNumber,271)                   -- White for arctic
   end
 end
 
-if mapper.autoexits then                                -- Automatically connect exit stubs to nearby stubs
-  local stubs = getExitStubs(mapper.roomNumber)         -- This is NOT always reliable, best not to do it next to unknown rooms
+if agm.autoexits then                                -- Automatically connect exit stubs to nearby stubs
+  local stubs = getExitStubs(agm.roomNumber)         -- This is NOT always reliable, best not to do it next to unknown rooms
   if stubs then
     for i,v in pairs(stubs) do
-      connectExitStub(mapper.roomNumber, v)
+      connectExitStub(agm.roomNumber, v)
     end
   end
 end
 
 displayCoords()</script>
-                <triggerType>0</triggerType>
-                <conditonLineDelta>8</conditonLineDelta>
-                <mStayOpen>0</mStayOpen>
-                <mCommand></mCommand>
-                <packageName></packageName>
-                <mFgColor>#ff0000</mFgColor>
-                <mBgColor>#ffff00</mBgColor>
-                <mSoundFile></mSoundFile>
-                <colorTriggerFgColor>#000000</colorTriggerFgColor>
-                <colorTriggerBgColor>#000000</colorTriggerBgColor>
-                <regexCodeList>
-                    <string>^You travel a .+ distance (\w+)</string>
-                    <string>^(?!It's|You travel|A closed wooden|An open wooden|You are)(.*)\.$</string>
-                    <string>^Exit(?:s\(\d+\))?:\s+([^.]+?)\.?$</string>
-                </regexCodeList>
-                <regexCodePropertyList>
-                    <integer>1</integer>
-                    <integer>1</integer>
-                    <integer>1</integer>
-                </regexCodePropertyList>
-            </Trigger>
+                    <triggerType>0</triggerType>
+                    <conditonLineDelta>8</conditonLineDelta>
+                    <mStayOpen>0</mStayOpen>
+                    <mCommand></mCommand>
+                    <packageName></packageName>
+                    <mFgColor>#ff0000</mFgColor>
+                    <mBgColor>#ffff00</mBgColor>
+                    <mSoundFile></mSoundFile>
+                    <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                    <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                    <regexCodeList>
+                        <string>^You travel a .+ distance (\w+)</string>
+                        <string>^(?!It's|You travel|A closed wooden|An open wooden|You are)(.*)\.$</string>
+                        <string>^Exit(?:s\(\d+\))?:\s+([^.]+?)\.?$</string>
+                    </regexCodeList>
+                    <regexCodePropertyList>
+                        <integer>1</integer>
+                        <integer>1</integer>
+                        <integer>1</integer>
+                    </regexCodePropertyList>
+                </Trigger>
+            </TriggerGroup>
         </TriggerGroup>
     </TriggerPackage>
     <TimerPackage/>
     <AliasPackage>
         <AliasGroup isActive="yes" isFolder="yes">
-            <name>Mapper</name>
+            <name>Arianwen's Geas Mapper</name>
             <script></script>
             <command></command>
-            <packageName></packageName>
+            <packageName>Arianwen's Geas Mapper</packageName>
             <regex></regex>
-            <Alias isActive="yes" isFolder="no">
-                <name>Add area</name>
-                <script>local newId, err = addAreaName(matches[2])
+            <AliasGroup isActive="yes" isFolder="yes">
+                <name>Mapper</name>
+                <script></script>
+                <command></command>
+                <packageName></packageName>
+                <regex></regex>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Add area</name>
+                    <script>local newId, err = addAreaName(matches[2])
  
 if newId == nil or newId &lt; 1 or err then
   echo(&quot;That area name could not be added - error is: &quot;.. err..&quot;\n\n&quot;)
 else
   cecho(&quot;&lt;green&gt;Created new area with the ID of &quot;..newId..&quot;.\n\n&quot;)
 end</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^addarea\s+(\w.+?)\s*$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Add room</name>
-                <script>jmaproom(matches[2],matches[3],matches[4],matches[5])</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^addroom\s+(\d+)\s+(\S+),(\S+),(\S+)\s*$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Automap toggle</name>
-                <script>if not mapper.autocreate then
-  mapper.autocreate = true
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^aaddarea\s+(\w.+?)\s*$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Add room</name>
+                    <script>agm_maproom(matches[2],matches[3],matches[4],matches[5])</script>
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^aaddroom\s+(\d+)\s+(\S+),(\S+),(\S+)\s*$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Automap toggle</name>
+                    <script>if not agm.autocreate then
+  agm.autocreate = true
   echo(&quot;AUTO-MAPPER ON\n\n&quot;)
 else
-  mapper.autocreate = false
+  agm.autocreate = false
   echo(&quot;AUTO-MAPPER OFF\n\n&quot;)
 end</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^amap$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Autoexit toggle</name>
-                <script>if not mapper.autoexits then
-  mapper.autoexits = true
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^aautomap$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Autoexit toggle</name>
+                    <script>if not agm.autoexits then
+  agm.autoexits = true
   echo(&quot;AUTO-EXITS ON\n\n&quot;)
 else
-  mapper.autoexits = false
+  agm.autoexits = false
   echo(&quot;AUTO-EXITS OFF\n\n&quot;)
 end</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^aexits$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Setpos</name>
-                <script>setMapPosition(tonumber(matches[2]))</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^setpos\s+(\d+)$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Connect stubs</name>
-                <script>local stubs = getExitStubs(mapper.roomNumber)
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^aautoexits$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Set position manually</name>
+                    <script>setMapPosition(tonumber(matches[2]))</script>
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^asetpos\s+(\d+)$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Connect exit stub</name>
+                    <script>local direction  = string.lower(matches[2])
+local currentRoomNumber = agm.roomNumber
+
+connectExitStub(currentRoomNumber,direction)
+centerview(currentRoomNumber)</script>
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^amapstub\s+(\w+)\s*$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Connect all stubs in room</name>
+                    <script>local stubs = getExitStubs(agm.roomNumber)
 if stubs then
   for i,v in pairs(stubs) do
-    connectExitStub(mapper.roomNumber, v)
+    connectExitStub(agm.roomNumber, v)
   end
 end
 
-centerview(mapper.roomNumber)</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^mapstubs$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Connect all stubs in area</name>
-                <script>local roomList = getAreaRooms(mapper.area)
+centerview(agm.roomNumber)</script>
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^amapstubs$</regex>
+                </Alias>
+                <Alias isActive="yes" isFolder="no">
+                    <name>Connect all stubs in area</name>
+                    <script>local roomList = getAreaRooms(agm.area)
 
 for k,v in ipairs(roomList) do
   local roomNumber = v
@@ -912,99 +945,39 @@ for k,v in ipairs(roomList) do
   end
 end
 
-centerview(mapper.roomNumber)</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^mapallstubs$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Connect room</name>
-                <script>local direction  = string.lower(matches[2])
---local inverseDirection = invertDirectionShort(direction)
-local currentRoomNumber = mapper.roomNumber
---local targetRoomNumber = tonumber(matches[3])
-
---setExitStub(currentRoomNumber, direction, false)
---setExitStub(targetRoomNumber, inverseDirection, false)
-
---if not setExit(currentRoomNumber,targetRoomNumber,direction) then
---  cecho(&quot;&lt;orange&gt;Error setting exit from &quot;..currentRoomNumber..&quot; &quot;..direction..&quot; to &quot;..targetRoomNumber..&quot;.\n\n&quot;)
---else
---  cecho(&quot;&lt;green&gt;Created exit from &quot;..currentRoomNumber..&quot; &quot;..direction..&quot; to &quot;..targetRoomNumber..&quot;.\n\n&quot;)
---end
-
---if not setExit(targetRoomNumber,currentRoomNumber,invertDirectionLong(direction)) then
---  cecho(&quot;&lt;orange&gt;Error setting exit from &quot;..targetRoomNumber..&quot; &quot;..inverseDirection..&quot; to &quot;..currentRoomNumber..&quot;.\n\n&quot;)
---else
---  cecho(&quot;&lt;green&gt;Created exit from &quot;..targetRoomNumber..&quot; &quot;..inverseDirection..&quot; to &quot;..currentRoomNumber..&quot;.\n\n&quot;)
---end
-
-connectExitStub(currentRoomNumber,direction)
-
-centerview(currentRoomNumber)</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^mapstub\s+(\w+)\s*$</regex>
-            </Alias>
-            <Alias isActive="yes" isFolder="no">
-                <name>Custom exit</name>
-                <script>local fromRoomNumber = tonumber(matches[2])
-local toRoomNumber   = tonumber(matches[3])
-local exitDirection  = string.lower(matches[4])
---local lineType       = string.lower(matches[5])
-local lineRed        = tonumber(matches[5])
-local lineGreen      = tonumber(matches[6])
-local lineBlue       = tonumber(matches[7])
-local lineArrow      = tobool(matches[8])
-
-fromX, fromY, fromZ = getRoomCoordinates(fromRoomNumber)
-toX, toY, toZ = getRoomCoordinates(toRoomNumber)
-
-exitLinePoints = {}
-exitLinePoints[0] = {}
-exitLinePoints[1] = {}
-table.insert(exitLinePoints[0],fromX)
-table.insert(exitLinePoints[0],fromY)
-table.insert(exitLinePoints[0],fromZ)
-table.insert(exitLinePoints[1],toX)
-table.insert(exitLinePoints[1],toY)
-table.insert(exitLinePoints[1],toZ)
-
-local lineColour   = {}
-lineColour[0] = lineRed
-lineColour[1] = lineGreen
-lineColour[2] = lineBlue
-
---addSpecialExit(fromRoomNumber, toRoomNumber, exitDirection)
-addCustomLine(fromRoomNumber, exitLinePoints, exitDirection, &quot;dash line&quot;, lineColour, lineArrow)
-
-centerview(mapper.roomNumber)</script>
-                <command></command>
-                <packageName></packageName>
-                <regex>^ce\s+(\d+)\s+(\d+)\s+(\w+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\w+?)\s*$</regex>
-            </Alias>
+centerview(agm.roomNumber)</script>
+                    <command></command>
+                    <packageName></packageName>
+                    <regex>^amapareastubs$</regex>
+                </Alias>
+            </AliasGroup>
         </AliasGroup>
     </AliasPackage>
     <ActionPackage/>
     <ScriptPackage>
         <ScriptGroup isActive="yes" isFolder="yes">
-            <name>Mapper</name>
-            <packageName></packageName>
-            <script>-------------------------------------------------
+            <name>Arianwen's Geas Mapper</name>
+            <packageName>Arianwen's Geas Mapper</packageName>
+            <script></script>
+            <eventHandlerList/>
+            <ScriptGroup isActive="yes" isFolder="yes">
+                <name>Mapper</name>
+                <packageName></packageName>
+                <script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external Scripts --
 -------------------------------------------------
 </script>
-            <eventHandlerList/>
-            <Script isActive="yes" isFolder="no">
-                <name>Mapper</name>
-                <packageName></packageName>
-                <script>mudlet = mudlet or {}
+                <eventHandlerList/>
+                <Script isActive="yes" isFolder="no">
+                    <name>Mapper init</name>
+                    <packageName></packageName>
+                    <script>mudlet = mudlet or {}
 mudlet.mapper_script = true
 
-mapper = mapper or {}
-room = room or {}
+agm    = agm or {}
+room   = room or {}
 
 ---------------------------------------------------------------
 
@@ -1092,27 +1065,37 @@ exitmap = {
   [27] = &quot;northtwestup&quot;,
   [28] = &quot;northwestdown&quot;,
 }</script>
-                <eventHandlerList/>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>jSaveMap</name>
-                <packageName></packageName>
-                <script>function jSaveMap()
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_loadmap</name>
+                    <packageName></packageName>
+                    <script>function agm_loadmap()
 
-  local savedok = saveMap(getMudletHomeDir()..&quot;/jayden_geas_map.dat&quot;)
-  if not savedok then
-    echo(&quot;Save error - jSaveMap()\n\n&quot;)
-  end
+  local loadedOK = loadMap(getMudletHomeDir()..&quot;/agm/ArianwenGeasMap.dat&quot;)
+  if not loadedOK then
+    local issueURL = [[http://github.com/PureWhiteWings/agm/issues]]
+    cecho(&quot;&lt;red&gt;Error - agm_loadmap()\n&quot;)
+    cecho(&quot;&lt;orange&gt;Please submit this error data at: &quot;)
+    cechoLink(&quot;&lt;white&gt;&quot;..issueURL,[[openUrl(&quot;]]..issueURL..[[&quot;)]],&quot;&quot;,true)
+    moveCursorEnd()
+		selectString(issueURL,1)
+		setUnderline(true)
+	  resetFormat()
+		echo(&quot;\n\n&quot;)
+  elseif loadedOK then
+	  centerview(1)
+	end
 
 end</script>
-                <eventHandlerList>
-                    <string>sysExitEvent</string>
-                </eventHandlerList>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>adjustMapperCoordinates</name>
-                <packageName></packageName>
-                <script>  function adjustMapperCoordinates(inputx, inputy, inputz, inputDirection)
+                    <eventHandlerList>
+                        <string>sysLoadEvent</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_adjustMapperCoordinates</name>
+                    <packageName></packageName>
+                    <script>  function agm_adjustMapperCoordinates(inputx, inputy, inputz, inputDirection)
 
   local outputx = inputx
   local outputy = inputy
@@ -1223,12 +1206,12 @@ end</script>
   return outputx, outputy, outputz
 
 end</script>
-                <eventHandlerList/>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>jmaproom</name>
-                <packageName></packageName>
-                <script>function jmaproom(roomArea, roomX, roomY, roomZ)
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_maproom</name>
+                    <packageName></packageName>
+                    <script>function agm_maproom(roomArea, roomX, roomY, roomZ)
 
   local area = tonumber(matches[2])
   local x = tonumber(matches[3])
@@ -1238,10 +1221,10 @@ end</script>
   local validExits = {&quot;n&quot;,&quot;ne&quot;,&quot;e&quot;,&quot;se&quot;,&quot;s&quot;,&quot;sw&quot;,&quot;w&quot;,&quot;nw&quot;,&quot;in&quot;,&quot;out&quot;,&quot;u&quot;,&quot;d&quot;}
   local comboExits = {&quot;nu&quot;, &quot;nd&quot;, &quot;neu&quot;, &quot;ned&quot;, &quot;eu&quot;, &quot;ed&quot;, &quot;seu&quot;, &quot;sed&quot;, &quot;su&quot;, &quot;sd&quot;, &quot;swu&quot;, &quot;swd&quot;, &quot;wu&quot;, &quot;wd&quot;, &quot;nwu&quot;, &quot;nwd&quot;}
 
-  if mapper.roomName then
+  if agm.roomName then
    if addRoom(newRoomNumber) == true then
 
-      for k,v in ipairs(mapper.roomExits) do
+      for k,v in ipairs(agm.roomExits) do
         if table.contains(validExits,v.altShort) then
           setExitStub(newRoomNumber, v.altShort, true)
         end
@@ -1249,11 +1232,11 @@ end</script>
 
       setRoomCoordinates(newRoomNumber, roomX, roomY, roomZ) 
       setRoomArea(newRoomNumber,roomArea)
-      setRoomName(newRoomNumber,mapper.roomName)
-      mapper.x = roomX
-      mapper.y = roomY
-      mapper.z = roomZ
-      mapper.area = roomArea
+      setRoomName(newRoomNumber,agm.roomName)
+      agm.x = roomX
+      agm.y = roomY
+      agm.z = roomZ
+      agm.area = roomArea
       centerview(newRoomNumber)
 
       return newRoomNumber
@@ -1266,12 +1249,12 @@ end</script>
   end
 
 end</script>
-                <eventHandlerList/>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>invertDirectionLong</name>
-                <packageName></packageName>
-                <script>function invertDirectionLong(direction)
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="no" isFolder="no">
+                    <name>agm_invertDirectionLong</name>
+                    <packageName></packageName>
+                    <script>function agm_invertDirectionLong(direction)
 
   local direction = string.lower(direction)
 
@@ -1336,12 +1319,12 @@ end</script>
   end    
 
 end</script>
-                <eventHandlerList/>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>invertDirectionShort</name>
-                <packageName></packageName>
-                <script>function invertDirectionShort(direction)
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="no" isFolder="no">
+                    <name>agm_invertDirectionShort</name>
+                    <packageName></packageName>
+                    <script>function agm_invertDirectionShort(direction)
 
   local direction = string.lower(direction)
 
@@ -1406,73 +1389,74 @@ end</script>
   end    
 
 end</script>
-                <eventHandlerList/>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>loadPlayerData</name>
-                <packageName></packageName>
-                <script>function loadPlayerData()
-
-  mapper = mapper or {}
-  table.load(getMudletHomeDir()..&quot;/jgmap.lua&quot;, mapper)
-
-end</script>
-                <eventHandlerList>
-                    <string>sysConnectionEvent</string>
-                </eventHandlerList>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>savePlayerData</name>
-                <packageName></packageName>
-                <script>function savePlayerData()
-
-  table.save(getMudletHomeDir()..&quot;/jgmap.lua&quot;, mapper)
-
-end</script>
-                <eventHandlerList>
-                    <string>sysDisconnectionEvent</string>
-                </eventHandlerList>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>setPositionViaMenu</name>
-                <packageName></packageName>
-                <script>function setPositionViaMenu(_, roomNumber)
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_setPositionViaMenu</name>
+                    <packageName></packageName>
+                    <script>function agm_setPositionViaMenu(_, roomNumber)
 
   setMapPosition(roomNumber)
 
 end</script>
-                <eventHandlerList>
-                    <string>sysManualLocationSetEvent</string>
-                </eventHandlerList>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>setMapPosition</name>
-                <packageName></packageName>
-                <script>function setMapPosition(roomNumber)
+                    <eventHandlerList>
+                        <string>sysManualLocationSetEvent</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_setMapPosition</name>
+                    <packageName></packageName>
+                    <script>function agm_setMapPosition(roomNumber)
 
-  mapper.roomNumber = roomNumber
-  mapper.area = getRoomArea(roomNumber)
-  mapper.x, mapper.y, mapper.z = getRoomCoordinates(roomNumber)
-  mapper.roomName = getRoomName(roomNumber)
+  agm.roomNumber = roomNumber
+  agm.area = getRoomArea(roomNumber)
+  agm.x, agm.y, agm.z = getRoomCoordinates(roomNumber)
+  agm.roomName = getRoomName(roomNumber)
 
   centerview(roomNumber)
   displayCoords()
 
 end</script>
-                <eventHandlerList/>
-            </Script>
-            <Script isActive="yes" isFolder="no">
-                <name>displayCoords</name>
-                <packageName></packageName>
-                <script>function displayCoords()
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_displayCoords</name>
+                    <packageName></packageName>
+                    <script>function agm_displayCoords()
 
   coordsConsole:clear() 
-  echo(&quot;coordsConsole&quot;,&quot;Area &quot;..mapper.area..&quot;: &quot;..getRoomAreaName(mapper.area)..&quot;\n&quot;)
-  echo(&quot;coordsConsole&quot;,mapper.x..&quot;, &quot;..mapper.y..&quot;, &quot;..mapper.z..&quot; (&quot;..mapper.roomNumber..&quot;)&quot;)
+  echo(&quot;coordsConsole&quot;,&quot;Area &quot;..agm.area..&quot;: &quot;..getRoomAreaName(agm.area)..&quot;\n&quot;)
+  echo(&quot;coordsConsole&quot;,agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z..&quot; (&quot;..agm.roomNumber..&quot;)&quot;)
 
 end</script>
-                <eventHandlerList/>
-            </Script>
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_loadPlayerData</name>
+                    <packageName></packageName>
+                    <script>function agm_loadPlayerData()
+
+  mapper = mapper or {}
+  table.load(getMudletHomeDir()..&quot;/jgmap.lua&quot;, agm)
+
+end</script>
+                    <eventHandlerList>
+                        <string>sysConnectionEvent</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_savePlayerData</name>
+                    <packageName></packageName>
+                    <script>function agm_savePlayerData()
+
+  table.save(getMudletHomeDir()..&quot;/AGM/saveData.lua&quot;, agm)
+
+end</script>
+                    <eventHandlerList>
+                        <string>sysDisconnectionEvent</string>
+                    </eventHandlerList>
+                </Script>
+            </ScriptGroup>
         </ScriptGroup>
     </ScriptPackage>
     <KeyPackage/>

@@ -1,1 +1,1 @@
-mpackage = "Arianwen's Geas Mapper"
+mpackage = "agm"
