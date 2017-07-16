@@ -3,13 +3,13 @@
 <MudletPackage version="1.001">
     <TriggerPackage>
         <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-            <name>Arianwen's Geas Mapper</name>
+            <name>agm</name>
             <script></script>
             <triggerType>0</triggerType>
             <conditonLineDelta>0</conditonLineDelta>
             <mStayOpen>0</mStayOpen>
             <mCommand></mCommand>
-            <packageName>Arianwen's Geas Mapper</packageName>
+            <packageName>agm</packageName>
             <mFgColor>#ff0000</mFgColor>
             <mBgColor>#ffff00</mBgColor>
             <mSoundFile></mSoundFile>
@@ -17,14 +17,14 @@
             <colorTriggerBgColor>#000000</colorTriggerBgColor>
             <regexCodeList/>
             <regexCodePropertyList/>
-            <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                <name>Mapper</name>
+            <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>Arianwen's Geas Mapper</name>
                 <script></script>
                 <triggerType>0</triggerType>
-                <conditonLineDelta>3</conditonLineDelta>
+                <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
                 <mCommand></mCommand>
-                <packageName></packageName>
+                <packageName>agm</packageName>
                 <mFgColor>#ff0000</mFgColor>
                 <mBgColor>#ffff00</mBgColor>
                 <mSoundFile></mSoundFile>
@@ -150,19 +150,6 @@ end
 ------------------------------------------------------------------------
 
 if agm.previousRoomExits and agm.roomNumber == -1 then
-  --for k,v in pairs(agm.previousRoomExits) do
-  --  cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Does &lt;white&gt;&quot;..k..&quot;&lt;yellow&gt; = &lt;white&gt;&quot;..directionTraveledAlt..&quot;&lt;yellow&gt;? &quot;)
-  --  if k == directionTraveledAlt then
-  --    cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Yes!\nExit to this room found! Setting position!\n&quot;)
-  --    agm.roomNumber = v
-  --    centerview(agm.roomNumber)
-  --    agm.area = getRoomArea(agm.roomNumber)
-  --    agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
-  --    break
-  --  else
-  --    cecho(&quot;debugWindow&quot;,&quot;&lt;red&gt;No.\n&quot;)
-  --  end
-  --end
   cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Room name not unique or not found!\n&lt;turquoise&gt;Searching previous room for a &lt;white&gt;&quot;..directionTraveledAlt..&quot; &lt;turquoise&gt;exit...\n&quot;)
   if agm.previousRoomExits[directionTraveledAlt] then
     cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Exit to this room found! Setting position!\n&quot;)
@@ -183,7 +170,7 @@ end
 
 if agm.roomNumber == -1 then
   cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;No valid exit found in previous room! Adjusting our coordinates and checking the map...\n&quot;)
-  agm.x, agm.y, agm.z = adjustMapperCoordinates(agm.x, agm.y, agm.z, directionTraveled)
+  agm.x, agm.y, agm.z = agm_adjustMapperCoordinates(agm.x, agm.y, agm.z, directionTraveled)
   local searchTable = getRoomsByPosition(agm.area,agm.x,agm.y,agm.z)
   if table.size(searchTable) &gt; 0 then
     cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Room found at these coordinates! Setting position!\n&quot;)
@@ -226,22 +213,22 @@ local knownRoomExits = getRoomExits(agm.roomNumber)
 
   for k,v in ipairs(exitTableClean) do    -- Generate list of exits in agm.roomExits from exitTableClean
 
-    if v == &quot;n&quot; then                                                                -- v is a short exit name, checking if v is &quot;n&quot;
-      agm.roomExits[#agm.roomExits+1] = {}                                    -- v is &quot;n&quot;, so make a new subtable entry in agm.roomExits
-      local lastExit = #agm.roomExits                                            -- lastExit holds the index of the latest entry in agm.roomExits
-      agm.roomExits[lastExit].long = &quot;north&quot;                                     -- Store the long name of the exit
-      agm.roomExits[lastExit].short = &quot;n&quot;                                        -- Store the short name of the exit
-      agm.roomExits[lastExit].altLong = &quot;north&quot;                                  -- Store the long altname - long exit name with &quot;up&quot; or &quot;down&quot; stripped out.
-      agm.roomExits[lastExit].altShort = &quot;n&quot;                                     -- Store the short altname - short exit name with &quot;up&quot; or &quot;down&quot; stripped out.
+    if v == &quot;n&quot; then                                     -- v is a short exit name, checking if v is &quot;n&quot;
+      agm.roomExits[#agm.roomExits+1] = {}               -- v is &quot;n&quot;, so make a new subtable entry in agm.roomExits
+      local lastExit = #agm.roomExits                    -- lastExit holds the index of the latest entry in agm.roomExits
+      agm.roomExits[lastExit].long = &quot;north&quot;             -- Store the long name of the exit
+      agm.roomExits[lastExit].short = &quot;n&quot;                -- Store the short name of the exit
+      agm.roomExits[lastExit].altLong = &quot;north&quot;          -- Store the long altname - long exit name with &quot;up&quot; or &quot;down&quot; stripped out.
+      agm.roomExits[lastExit].altShort = &quot;n&quot;             -- Store the short altname - short exit name with &quot;up&quot; or &quot;down&quot; stripped out.
       if knownRoomExits then
-        if knownRoomExits[&quot;north&quot;] then                                               -- If there is a known room exit to the north...
-          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]           -- Mark this exit as going to that room number...
-        end                                                                           -- And then move on
+        if knownRoomExits[&quot;north&quot;] then                                             -- If there is a known room exit to the north...
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]            -- Mark this exit as going to that room number...
+        end                                                                         -- And then move on
       end
       if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then    -- Checking for &quot;[p]&quot; or &quot;[r]&quot; in equivalent exitTable entry...
-        agm.roomExits[lastExit].road = true                                      -- If either found, mark this exit as a road
+        agm.roomExits[lastExit].road = true                                         -- If either found, mark this exit as a road
       else                                                                          -- But if we don't find either string...
-        agm.roomExits[lastExit].road = false                                     -- Mark this exit as not being on a road
+        agm.roomExits[lastExit].road = false                                        -- Mark this exit as not being on a road
       end                                                                           -- Done with this ipair, let's start over on the next k
 
     elseif v == &quot;nu&quot; then
@@ -738,45 +725,6 @@ local knownRoomExits = getRoomExits(agm.roomNumber)
 
 
 
-
-------------------------------------------------------------------------
---             Use the UI compass to show road directions             --
-------------------------------------------------------------------------
-compass.n:hide()       -- Hide all the compass points
-compass.ne:hide()
-compass.e:hide()
-compass.se:hide()
-compass.s:hide()
-compass.sw:hide()
-compass.w:hide()
-compass.nw:hide()
-
-for k,v in ipairs(agm.roomExits) do                                    -- Process each exit in agm.roomExits
-  if v.road then                                                          -- Check if exit k is a road
-    if v.short == &quot;n&quot; or v.short == &quot;nu&quot; or v.short == &quot;nd&quot; then          -- Check if exit k has &quot;n&quot; as a short exitname
-      compass.n:show()
-    elseif v.short == &quot;ne&quot; or v.short == &quot;neu&quot; or v.short == &quot;ned&quot; then
-      compass.ne:show()
-    elseif v.short == &quot;e&quot; or v.short == &quot;eu&quot; or v.short == &quot;ed&quot; then
-      compass.e:show()
-    elseif v.short == &quot;se&quot; or v.short == &quot;seu&quot; or v.short == &quot;sed&quot; then
-      compass.se:show()
-    elseif v.short == &quot;s&quot; or v.short == &quot;su&quot; or v.short == &quot;sd&quot; then
-      compass.s:show()
-    elseif v.short == &quot;sw&quot; or v.short == &quot;swu&quot; or v.short == &quot;swd&quot; then
-      compass.sw:show()
-    elseif v.short == &quot;w&quot; or v.short == &quot;wu&quot; or v.short == &quot;wd&quot; then
-      compass.w:show()
-    elseif v.short == &quot;nw&quot; or v.short == &quot;nwu&quot; or v.short == &quot;nwd&quot; then
-      compass.nw:show()
-    end
-  end
-end
-
-
-
-
-
 ------------------------------------------------------------------------
 --                       Automapping extra bits                       --
 ------------------------------------------------------------------------
@@ -842,16 +790,16 @@ end
     <TimerPackage/>
     <AliasPackage>
         <AliasGroup isActive="yes" isFolder="yes">
-            <name>Arianwen's Geas Mapper</name>
+            <name>agm</name>
             <script></script>
             <command></command>
-            <packageName>Arianwen's Geas Mapper</packageName>
+            <packageName>agm</packageName>
             <regex></regex>
             <AliasGroup isActive="yes" isFolder="yes">
-                <name>Mapper</name>
+                <name>Arianwen's Geas Mapper</name>
                 <script></script>
                 <command></command>
-                <packageName></packageName>
+                <packageName>agm</packageName>
                 <regex></regex>
                 <Alias isActive="yes" isFolder="no">
                     <name>Add area</name>
@@ -956,19 +904,14 @@ centerview(agm.roomNumber)</script>
     <ActionPackage/>
     <ScriptPackage>
         <ScriptGroup isActive="yes" isFolder="yes">
-            <name>Arianwen's Geas Mapper</name>
-            <packageName>Arianwen's Geas Mapper</packageName>
+            <name>agm</name>
+            <packageName>agm</packageName>
             <script></script>
             <eventHandlerList/>
             <ScriptGroup isActive="yes" isFolder="yes">
-                <name>Mapper</name>
-                <packageName></packageName>
-                <script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external Scripts --
--------------------------------------------------
-</script>
+                <name>Arianwen's Geas Mapper</name>
+                <packageName>agm</packageName>
+                <script></script>
                 <eventHandlerList/>
                 <Script isActive="yes" isFolder="no">
                     <name>Mapper init</name>
@@ -979,9 +922,12 @@ mudlet.mapper_script = true
 agm    = agm or {}
 room   = room or {}
 
+agm.version = &quot;v0.2.2&quot;
+agm.issueURL = [[http://github.com/PureWhiteWings/agm/issues]]
+
 ---------------------------------------------------------------
 
-exitmap = {
+agm.exitmap = {
   [&quot;n&quot;] = 1,
   [&quot;north&quot;] = 1,
   [&quot;ne&quot;] = 2,
@@ -1068,23 +1014,36 @@ exitmap = {
                     <eventHandlerList/>
                 </Script>
                 <Script isActive="yes" isFolder="no">
+                    <name>agm_installed</name>
+                    <packageName></packageName>
+                    <script>function agm_installed(_, packageName, fileName)
+
+  if packageName == &quot;agm&quot; then
+	  agm_loadmap()
+	end
+
+end</script>
+                    <eventHandlerList>
+                        <string>sysInstallPackage</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
                     <name>agm_loadmap</name>
                     <packageName></packageName>
                     <script>function agm_loadmap()
 
   local loadedOK = loadMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
   if not loadedOK then
-    local issueURL = [[http://github.com/PureWhiteWings/agm/issues]]
     cecho(&quot;&lt;red&gt;Error - agm_loadmap()\n&quot;)
     cecho(&quot;&lt;orange&gt;Please submit this error data at: &quot;)
-    cechoLink(&quot;&lt;white&gt;&quot;..issueURL,[[openUrl(&quot;]]..issueURL..[[&quot;)]],&quot;&quot;,true)
+    cechoLink(&quot;&lt;white&gt;&quot;..agm.issueURL,[[openUrl(&quot;]]..agm.issueURL..[[&quot;)]],&quot;&quot;,true)
     moveCursorEnd()
-		selectString(issueURL,1)
+		selectString(agm.issueURL,1)
 		setUnderline(true)
 	  resetFormat()
 		echo(&quot;\n\n&quot;)
   elseif loadedOK then
-	  centerview(1)
+		raiseEvent(&quot;agm map loaded&quot;)
 	end
 
 end</script>
@@ -1251,6 +1210,75 @@ end</script>
 end</script>
                     <eventHandlerList/>
                 </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_setPositionViaMenu</name>
+                    <packageName></packageName>
+                    <script>function agm_setPositionViaMenu(_, roomNumber)
+
+  agm_setMapPosition(roomNumber)
+
+end</script>
+                    <eventHandlerList>
+                        <string>sysManualLocationSetEvent</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_setMapPosition</name>
+                    <packageName></packageName>
+                    <script>function agm_setMapPosition(roomNumber)
+
+  agm.roomNumber = roomNumber
+  agm.area = getRoomArea(roomNumber)
+  agm.x, agm.y, agm.z = getRoomCoordinates(roomNumber)
+  agm.roomName = getRoomName(roomNumber)
+
+  centerview(roomNumber)
+  --agm_displayCoords()
+
+end</script>
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_displayCoords</name>
+                    <packageName></packageName>
+                    <script>function agm_displayCoords()
+
+  coordsConsole:clear() 
+  echo(&quot;coordsConsole&quot;,&quot;Area &quot;..agm.area..&quot;: &quot;..getRoomAreaName(agm.area)..&quot;\n&quot;)
+  echo(&quot;coordsConsole&quot;,agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z..&quot; (&quot;..agm.roomNumber..&quot;)&quot;)
+
+end</script>
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_loadPlayerData</name>
+                    <packageName></packageName>
+                    <script>function agm_loadPlayerData()
+
+  agm = agm or {}
+	cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Loading user data.\n\n&quot;)
+	table.load(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
+  agm_setMapPosition(agm.roomNumber)
+
+end</script>
+                    <eventHandlerList>
+                        <string>agm map loaded</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_savePlayerData</name>
+                    <packageName></packageName>
+                    <script>function agm_savePlayerData()
+
+  cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Saving user data.\n\n&quot;)
+  table.save(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
+
+end</script>
+                    <eventHandlerList>
+                        <string>sysDisconnectionEvent</string>
+                        <string>sysExitEvent</string>
+                    </eventHandlerList>
+                </Script>
                 <Script isActive="no" isFolder="no">
                     <name>agm_invertDirectionLong</name>
                     <packageName></packageName>
@@ -1390,71 +1418,6 @@ end</script>
 
 end</script>
                     <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_setPositionViaMenu</name>
-                    <packageName></packageName>
-                    <script>function agm_setPositionViaMenu(_, roomNumber)
-
-  agm_setMapPosition(roomNumber)
-
-end</script>
-                    <eventHandlerList>
-                        <string>sysManualLocationSetEvent</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_setMapPosition</name>
-                    <packageName></packageName>
-                    <script>function agm_setMapPosition(roomNumber)
-
-  agm.roomNumber = roomNumber
-  agm.area = getRoomArea(roomNumber)
-  agm.x, agm.y, agm.z = getRoomCoordinates(roomNumber)
-  agm.roomName = getRoomName(roomNumber)
-
-  centerview(roomNumber)
-  --agm_displayCoords()
-
-end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_displayCoords</name>
-                    <packageName></packageName>
-                    <script>function agm_displayCoords()
-
-  coordsConsole:clear() 
-  echo(&quot;coordsConsole&quot;,&quot;Area &quot;..agm.area..&quot;: &quot;..getRoomAreaName(agm.area)..&quot;\n&quot;)
-  echo(&quot;coordsConsole&quot;,agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z..&quot; (&quot;..agm.roomNumber..&quot;)&quot;)
-
-end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_loadPlayerData</name>
-                    <packageName></packageName>
-                    <script>function agm_loadPlayerData()
-
-  mapper = mapper or {}
-  table.load(getMudletHomeDir()..&quot;/jgmap.lua&quot;, agm)
-
-end</script>
-                    <eventHandlerList>
-                        <string>sysConnectionEvent</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_savePlayerData</name>
-                    <packageName></packageName>
-                    <script>function agm_savePlayerData()
-
-  table.save(getMudletHomeDir()..&quot;/AGM/saveData.lua&quot;, agm)
-
-end</script>
-                    <eventHandlerList>
-                        <string>sysDisconnectionEvent</string>
-                    </eventHandlerList>
                 </Script>
             </ScriptGroup>
         </ScriptGroup>
