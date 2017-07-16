@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Jekyll Docs Template"
+title: "Arianwen's Geas Mapper"
 ---
 
 ### Get Started
