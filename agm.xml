@@ -3,7 +3,7 @@
 <MudletPackage version="1.001">
     <TriggerPackage>
         <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-            <name>agm</name>
+            <name>Arianwen's Geas Mapper</name>
             <script></script>
             <triggerType>0</triggerType>
             <conditonLineDelta>0</conditonLineDelta>
@@ -18,13 +18,13 @@
             <regexCodeList/>
             <regexCodePropertyList/>
             <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                <name>Arianwen's Geas Mapper</name>
+                <name>Markpoints</name>
                 <script></script>
                 <triggerType>0</triggerType>
                 <conditonLineDelta>0</conditonLineDelta>
                 <mStayOpen>0</mStayOpen>
                 <mCommand></mCommand>
-                <packageName>agm</packageName>
+                <packageName></packageName>
                 <mFgColor>#ff0000</mFgColor>
                 <mBgColor>#ffff00</mBgColor>
                 <mSoundFile></mSoundFile>
@@ -32,11 +32,14 @@
                 <colorTriggerBgColor>#000000</colorTriggerBgColor>
                 <regexCodeList/>
                 <regexCodePropertyList/>
-                <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                    <name>Markpoints</name>
-                    <script></script>
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>Elor entrance</name>
+                    <script>agm.roomNumber = 1216
+agm.area = getRoomArea(agm.roomNumber)
+agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
+centerview(agm.roomNumber)</script>
                     <triggerType>0</triggerType>
-                    <conditonLineDelta>0</conditonLineDelta>
+                    <conditonLineDelta>2</conditonLineDelta>
                     <mStayOpen>0</mStayOpen>
                     <mCommand></mCommand>
                     <packageName></packageName>
@@ -45,39 +48,21 @@
                     <mSoundFile></mSoundFile>
                     <colorTriggerFgColor>#000000</colorTriggerFgColor>
                     <colorTriggerBgColor>#000000</colorTriggerBgColor>
-                    <regexCodeList/>
-                    <regexCodePropertyList/>
-                    <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                        <name>Elor entrance</name>
-                        <script>agm.roomNumber = 1216
-agm.area = getRoomArea(agm.roomNumber)
-agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
-centerview(agm.roomNumber)</script>
-                        <triggerType>0</triggerType>
-                        <conditonLineDelta>2</conditonLineDelta>
-                        <mStayOpen>0</mStayOpen>
-                        <mCommand></mCommand>
-                        <packageName></packageName>
-                        <mFgColor>#ff0000</mFgColor>
-                        <mBgColor>#ffff00</mBgColor>
-                        <mSoundFile></mSoundFile>
-                        <colorTriggerFgColor>#000000</colorTriggerFgColor>
-                        <colorTriggerBgColor>#000000</colorTriggerBgColor>
-                        <regexCodeList>
-                            <string> Several man-sized stones stand</string>
-                            <string> Several big ancient stones rise</string>
-                            <string> Runes are inscribed</string>
-                        </regexCodeList>
-                        <regexCodePropertyList>
-                            <integer>2</integer>
-                            <integer>2</integer>
-                            <integer>2</integer>
-                        </regexCodePropertyList>
-                    </Trigger>
-                </TriggerGroup>
-                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-                    <name>Moved</name>
-                    <script>------------------------------------------------------------------------
+                    <regexCodeList>
+                        <string> Several man-sized stones stand</string>
+                        <string> Several big ancient stones rise</string>
+                        <string> Runes are inscribed</string>
+                    </regexCodeList>
+                    <regexCodePropertyList>
+                        <integer>2</integer>
+                        <integer>2</integer>
+                        <integer>2</integer>
+                    </regexCodePropertyList>
+                </Trigger>
+            </TriggerGroup>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>Moved</name>
+                <script>------------------------------------------------------------------------
 --     Process exit string for later, ready local tables for use      --
 ------------------------------------------------------------------------
 
@@ -763,111 +748,104 @@ if agm.autoexits then                                -- Automatically connect ex
 end
 
 --agm_displayCoords()</script>
-                    <triggerType>0</triggerType>
-                    <conditonLineDelta>8</conditonLineDelta>
-                    <mStayOpen>0</mStayOpen>
-                    <mCommand></mCommand>
-                    <packageName></packageName>
-                    <mFgColor>#ff0000</mFgColor>
-                    <mBgColor>#ffff00</mBgColor>
-                    <mSoundFile></mSoundFile>
-                    <colorTriggerFgColor>#000000</colorTriggerFgColor>
-                    <colorTriggerBgColor>#000000</colorTriggerBgColor>
-                    <regexCodeList>
-                        <string>^You travel a .+ distance (\w+)</string>
-                        <string>^(?!It's|You travel|A closed wooden|An open wooden|You are)(.*)\.$</string>
-                        <string>^Exit(?:s\(\d+\))?:\s+([^.]+?)\.?$</string>
-                    </regexCodeList>
-                    <regexCodePropertyList>
-                        <integer>1</integer>
-                        <integer>1</integer>
-                        <integer>1</integer>
-                    </regexCodePropertyList>
-                </Trigger>
-            </TriggerGroup>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>8</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^You travel a .+ distance (\w+)</string>
+                    <string>^(?!It's|You travel|A closed wooden|An open wooden|You are)(.*)\.$</string>
+                    <string>^Exit(?:s\(\d+\))?:\s+([^.]+?)\.?$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
         </TriggerGroup>
     </TriggerPackage>
     <TimerPackage/>
     <AliasPackage>
         <AliasGroup isActive="yes" isFolder="yes">
-            <name>agm</name>
+            <name>Arianwen's Geas Mapper</name>
             <script></script>
             <command></command>
             <packageName>agm</packageName>
             <regex></regex>
-            <AliasGroup isActive="yes" isFolder="yes">
-                <name>Arianwen's Geas Mapper</name>
-                <script></script>
-                <command></command>
-                <packageName>agm</packageName>
-                <regex></regex>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Add area</name>
-                    <script>local newId, err = addAreaName(matches[2])
+            <Alias isActive="yes" isFolder="no">
+                <name>Add area</name>
+                <script>local newId, err = addAreaName(matches[2])
  
 if newId == nil or newId &lt; 1 or err then
   echo(&quot;That area name could not be added - error is: &quot;.. err..&quot;\n\n&quot;)
 else
   cecho(&quot;&lt;green&gt;Created new area with the ID of &quot;..newId..&quot;.\n\n&quot;)
 end</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^aaddarea\s+(\w.+?)\s*$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Add room</name>
-                    <script>agm_maproom(matches[2],matches[3],matches[4],matches[5])</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^aaddroom\s+(\d+)\s+(\S+),(\S+),(\S+)\s*$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Automap toggle</name>
-                    <script>if not agm.autocreate then
+                <command></command>
+                <packageName></packageName>
+                <regex>^aaddarea\s+(\w.+?)\s*$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Add room</name>
+                <script>agm_maproom(matches[2],matches[3],matches[4],matches[5])</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^aaddroom\s+(\d+)\s+(\S+),(\S+),(\S+)\s*$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Automap toggle</name>
+                <script>if not agm.autocreate then
   agm.autocreate = true
   echo(&quot;AUTO-MAPPER ON\n\n&quot;)
 else
   agm.autocreate = false
   echo(&quot;AUTO-MAPPER OFF\n\n&quot;)
 end</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^aautomap$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Autoexit toggle</name>
-                    <script>if not agm.autoexits then
+                <command></command>
+                <packageName></packageName>
+                <regex>^aautomap$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Autoexit toggle</name>
+                <script>if not agm.autoexits then
   agm.autoexits = true
   echo(&quot;AUTO-EXITS ON\n\n&quot;)
 else
   agm.autoexits = false
   echo(&quot;AUTO-EXITS OFF\n\n&quot;)
 end</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^aautoexits$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Set position manually</name>
-                    <script>agm_setMapPosition(tonumber(matches[2]))</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^asetpos\s+(\d+)$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Connect exit stub</name>
-                    <script>local direction  = string.lower(matches[2])
+                <command></command>
+                <packageName></packageName>
+                <regex>^aautoexits$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Set position manually</name>
+                <script>agm_setMapPosition(tonumber(matches[2]))</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^asetpos\s+(\d+)$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Connect exit stub</name>
+                <script>local direction  = string.lower(matches[2])
 local currentRoomNumber = agm.roomNumber
 
 connectExitStub(currentRoomNumber,direction)
 centerview(currentRoomNumber)</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^amapstub\s+(\w+)\s*$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Connect all stubs in room</name>
-                    <script>local stubs = getExitStubs(agm.roomNumber)
+                <command></command>
+                <packageName></packageName>
+                <regex>^amapstub\s+(\w+)\s*$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Connect all stubs in room</name>
+                <script>local stubs = getExitStubs(agm.roomNumber)
 if stubs then
   for i,v in pairs(stubs) do
     connectExitStub(agm.roomNumber, v)
@@ -875,13 +853,13 @@ if stubs then
 end
 
 centerview(agm.roomNumber)</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^amapstubs$</regex>
-                </Alias>
-                <Alias isActive="yes" isFolder="no">
-                    <name>Connect all stubs in area</name>
-                    <script>local roomList = getAreaRooms(agm.area)
+                <command></command>
+                <packageName></packageName>
+                <regex>^amapstubs$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Connect all stubs in area</name>
+                <script>local roomList = getAreaRooms(agm.area)
 
 for k,v in ipairs(roomList) do
   local roomNumber = v
@@ -894,35 +872,29 @@ for k,v in ipairs(roomList) do
 end
 
 centerview(agm.roomNumber)</script>
-                    <command></command>
-                    <packageName></packageName>
-                    <regex>^amapareastubs$</regex>
-                </Alias>
-            </AliasGroup>
+                <command></command>
+                <packageName></packageName>
+                <regex>^amapareastubs$</regex>
+            </Alias>
         </AliasGroup>
     </AliasPackage>
     <ActionPackage/>
     <ScriptPackage>
         <ScriptGroup isActive="yes" isFolder="yes">
-            <name>agm</name>
+            <name>Arianwen's Geas Mapper</name>
             <packageName>agm</packageName>
             <script></script>
             <eventHandlerList/>
-            <ScriptGroup isActive="yes" isFolder="yes">
-                <name>Arianwen's Geas Mapper</name>
-                <packageName>agm</packageName>
-                <script></script>
-                <eventHandlerList/>
-                <Script isActive="yes" isFolder="no">
-                    <name>Mapper init</name>
-                    <packageName></packageName>
-                    <script>mudlet = mudlet or {}
+            <Script isActive="yes" isFolder="no">
+                <name>Mapper init</name>
+                <packageName></packageName>
+                <script>mudlet = mudlet or {}
 mudlet.mapper_script = true
 
 agm    = agm or {}
 room   = room or {}
 
-agm.scriptVersion = &quot;0.3.0&quot;
+agm.scriptVersion = &quot;0.3.1&quot;
 agm.issueURL    = [[http://github.com/PureWhiteWings/agm/issues]]
 agm.releasesURL = [[http://github.com/PureWhiteWings/agm/releases/tag]]
 
@@ -1012,26 +984,26 @@ agm.exitmap = {
   [27] = &quot;northtwestup&quot;,
   [28] = &quot;northwestdown&quot;,
 }</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_installed</name>
-                    <packageName></packageName>
-                    <script>function agm_installed(_, packageName, fileName)
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_installed</name>
+                <packageName></packageName>
+                <script>function agm_installed(_, packageName, fileName)
 
   if packageName == &quot;agm&quot; then
 	  agm_loadMap()
 	end
 
 end</script>
-                    <eventHandlerList>
-                        <string>sysInstallPackage</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_loadMap</name>
-                    <packageName></packageName>
-                    <script>function agm_loadMap()
+                <eventHandlerList>
+                    <string>sysInstallPackage</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_loadMap</name>
+                <packageName></packageName>
+                <script>function agm_loadMap()
 
   local loadedOK = loadMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
   if not loadedOK then
@@ -1049,14 +1021,38 @@ end</script>
 	end
 
 end</script>
-                    <eventHandlerList>
-                        <string>sysLoadEvent</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_adjustMapperCoordinates</name>
-                    <packageName></packageName>
-                    <script>  function agm_adjustMapperCoordinates(inputx, inputy, inputz, inputDirection)
+                <eventHandlerList>
+                    <string>sysLoadEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_saveMap</name>
+                <packageName></packageName>
+                <script>function agm_saveMap()
+
+  local savedOK = saveMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
+  if not savedOK then
+    cecho(&quot;&lt;red&gt;Error - agm_saveMap()\n&quot;)
+    cecho(&quot;&lt;orange&gt;Please submit this error data at: &quot;)
+    cechoLink(&quot;&lt;white&gt;&quot;..agm.issueURL,[[openUrl(&quot;]]..agm.issueURL..[[&quot;)]],&quot;&quot;,true)
+    moveCursorEnd()
+		selectString(agm.issueURL,1)
+		setUnderline(true)
+	  resetFormat()
+		echo(&quot;\n\n&quot;)
+  elseif savedOK then
+		raiseEvent(&quot;agm map saved&quot;)
+	end
+
+end</script>
+                <eventHandlerList>
+                    <string>sysExitEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_adjustMapperCoordinates</name>
+                <packageName></packageName>
+                <script>  function agm_adjustMapperCoordinates(inputx, inputy, inputz, inputDirection)
 
   local outputx = inputx
   local outputy = inputy
@@ -1167,12 +1163,12 @@ end</script>
   return outputx, outputy, outputz
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_maproom</name>
-                    <packageName></packageName>
-                    <script>function agm_maproom(roomArea, roomX, roomY, roomZ)
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_maproom</name>
+                <packageName></packageName>
+                <script>function agm_maproom(roomArea, roomX, roomY, roomZ)
 
   local area = tonumber(matches[2])
   local x = tonumber(matches[3])
@@ -1210,24 +1206,24 @@ end</script>
   end
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_setPositionViaMenu</name>
-                    <packageName></packageName>
-                    <script>function agm_setPositionViaMenu(_, roomNumber)
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_setPositionViaMenu</name>
+                <packageName></packageName>
+                <script>function agm_setPositionViaMenu(_, roomNumber)
 
   agm_setMapPosition(roomNumber)
 
 end</script>
-                    <eventHandlerList>
-                        <string>sysManualLocationSetEvent</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_setMapPosition</name>
-                    <packageName></packageName>
-                    <script>function agm_setMapPosition(roomNumber)
+                <eventHandlerList>
+                    <string>sysManualLocationSetEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_setMapPosition</name>
+                <packageName></packageName>
+                <script>function agm_setMapPosition(roomNumber)
 
   agm.roomNumber = roomNumber
   agm.area = getRoomArea(roomNumber)
@@ -1238,24 +1234,24 @@ end</script>
   --agm_displayCoords()
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_displayCoords</name>
-                    <packageName></packageName>
-                    <script>function agm_displayCoords()
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_displayCoords</name>
+                <packageName></packageName>
+                <script>function agm_displayCoords()
 
   coordsConsole:clear() 
   echo(&quot;coordsConsole&quot;,&quot;Area &quot;..agm.area..&quot;: &quot;..getRoomAreaName(agm.area)..&quot;\n&quot;)
   echo(&quot;coordsConsole&quot;,agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z..&quot; (&quot;..agm.roomNumber..&quot;)&quot;)
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_loadPlayerData</name>
-                    <packageName></packageName>
-                    <script>function agm_loadPlayerData()
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_loadPlayerData</name>
+                <packageName></packageName>
+                <script>function agm_loadPlayerData()
 
   agm = agm or {}
 	--cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Loading user data.\n\n&quot;)
@@ -1263,28 +1259,28 @@ end</script>
   agm_setMapPosition(agm.roomNumber)
 
 end</script>
-                    <eventHandlerList>
-                        <string>agm map loaded</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_savePlayerData</name>
-                    <packageName></packageName>
-                    <script>function agm_savePlayerData()
+                <eventHandlerList>
+                    <string>agm map loaded</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_savePlayerData</name>
+                <packageName></packageName>
+                <script>function agm_savePlayerData()
 
   --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Saving user data.\n\n&quot;)
   table.save(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
 
 end</script>
-                    <eventHandlerList>
-                        <string>sysDisconnectionEvent</string>
-                        <string>sysExitEvent</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="no" isFolder="no">
-                    <name>agm_invertDirectionLong</name>
-                    <packageName></packageName>
-                    <script>function agm_invertDirectionLong(direction)
+                <eventHandlerList>
+                    <string>sysDisconnectionEvent</string>
+                    <string>sysExitEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="no" isFolder="no">
+                <name>agm_invertDirectionLong</name>
+                <packageName></packageName>
+                <script>function agm_invertDirectionLong(direction)
 
   local direction = string.lower(direction)
 
@@ -1349,12 +1345,12 @@ end</script>
   end    
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="no" isFolder="no">
-                    <name>agm_invertDirectionShort</name>
-                    <packageName></packageName>
-                    <script>function agm_invertDirectionShort(direction)
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="no" isFolder="no">
+                <name>agm_invertDirectionShort</name>
+                <packageName></packageName>
+                <script>function agm_invertDirectionShort(direction)
 
   local direction = string.lower(direction)
 
@@ -1419,25 +1415,25 @@ end</script>
   end    
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_downloadVersionFile</name>
-                    <packageName></packageName>
-                    <script>function agm_downloadVersionFile()
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_downloadVersionFile</name>
+                <packageName></packageName>
+                <script>function agm_downloadVersionFile()
 
   --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Downloading version file...\n&quot;)     -- For debug purposes
   downloadFile(getMudletHomeDir()..&quot;/agm/scriptVersion.txt&quot;, &quot;https://raw.githubusercontent.com/PureWhiteWings/agm/master/scriptVersion.txt&quot;)
 	
 end</script>
-                    <eventHandlerList>
-                        <string>sysConnectionEvent</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_checkVersionFile</name>
-                    <packageName></packageName>
-                    <script>function agm_checkVersionFile(_, filename)
+                <eventHandlerList>
+                    <string>sysConnectionEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_checkVersionFile</name>
+                <packageName></packageName>
+                <script>function agm_checkVersionFile(_, filename)
 
   --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Downloading complete!\n&quot;)    -- For debug purposes
 
@@ -1477,14 +1473,14 @@ end</script>
   remoteVersionString = nil
 
 end</script>
-                    <eventHandlerList>
-                        <string>sysDownloadDone</string>
-                    </eventHandlerList>
-                </Script>
-                <Script isActive="yes" isFolder="no">
-                    <name>agm_displayUpdateInformation</name>
-                    <packageName></packageName>
-                    <script>function agm_displayUpdateInformation(currentVersion, newVersion)
+                <eventHandlerList>
+                    <string>sysDownloadDone</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_displayUpdateInformation</name>
+                <packageName></packageName>
+                <script>function agm_displayUpdateInformation(currentVersion, newVersion)
 
  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Information display started:\n&quot;)      -- For debug purposes
  
@@ -1498,9 +1494,8 @@ end</script>
  echo(&quot;\n\n&quot;)
 
 end</script>
-                    <eventHandlerList/>
-                </Script>
-            </ScriptGroup>
+                <eventHandlerList/>
+            </Script>
         </ScriptGroup>
     </ScriptPackage>
     <KeyPackage/>
