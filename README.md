@@ -1,5 +1,5 @@
 ## Arianwen's Geas Mapper
----
+
 Full documentation: http://purewhitewings.github.io/agm/
 
 A Mudlet mapping package for use with [Geas](http://www.geas.de). Provides both map creation tools and simple step-following functionality.
