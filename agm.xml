@@ -922,8 +922,9 @@ mudlet.mapper_script = true
 agm    = agm or {}
 room   = room or {}
 
-agm.version = &quot;v0.2.2&quot;
-agm.issueURL = [[http://github.com/PureWhiteWings/agm/issues]]
+agm.scriptVersion = &quot;0.3.0&quot;
+agm.issueURL    = [[http://github.com/PureWhiteWings/agm/issues]]
+agm.releasesURL = [[http://github.com/PureWhiteWings/agm/releases/tag]]
 
 ---------------------------------------------------------------
 
@@ -1019,7 +1020,7 @@ agm.exitmap = {
                     <script>function agm_installed(_, packageName, fileName)
 
   if packageName == &quot;agm&quot; then
-	  agm_loadmap()
+	  agm_loadMap()
 	end
 
 end</script>
@@ -1028,13 +1029,13 @@ end</script>
                     </eventHandlerList>
                 </Script>
                 <Script isActive="yes" isFolder="no">
-                    <name>agm_loadmap</name>
+                    <name>agm_loadMap</name>
                     <packageName></packageName>
-                    <script>function agm_loadmap()
+                    <script>function agm_loadMap()
 
   local loadedOK = loadMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
   if not loadedOK then
-    cecho(&quot;&lt;red&gt;Error - agm_loadmap()\n&quot;)
+    cecho(&quot;&lt;red&gt;Error - agm_loadMap()\n&quot;)
     cecho(&quot;&lt;orange&gt;Please submit this error data at: &quot;)
     cechoLink(&quot;&lt;white&gt;&quot;..agm.issueURL,[[openUrl(&quot;]]..agm.issueURL..[[&quot;)]],&quot;&quot;,true)
     moveCursorEnd()
@@ -1043,6 +1044,7 @@ end</script>
 	  resetFormat()
 		echo(&quot;\n\n&quot;)
   elseif loadedOK then
+	  agm.mapVersion = getMapUserData(&quot;version&quot;)
 		raiseEvent(&quot;agm map loaded&quot;)
 	end
 
@@ -1256,7 +1258,7 @@ end</script>
                     <script>function agm_loadPlayerData()
 
   agm = agm or {}
-	cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Loading user data.\n\n&quot;)
+	--cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Loading user data.\n\n&quot;)
 	table.load(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
   agm_setMapPosition(agm.roomNumber)
 
@@ -1270,7 +1272,7 @@ end</script>
                     <packageName></packageName>
                     <script>function agm_savePlayerData()
 
-  cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Saving user data.\n\n&quot;)
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Saving user data.\n\n&quot;)
   table.save(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
 
 end</script>
@@ -1415,6 +1417,85 @@ end</script>
   else
     return -1
   end    
+
+end</script>
+                    <eventHandlerList/>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_downloadVersionFile</name>
+                    <packageName></packageName>
+                    <script>function agm_downloadVersionFile()
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Downloading version file...\n&quot;)     -- For debug purposes
+  downloadFile(getMudletHomeDir()..&quot;/agm/scriptVersion.txt&quot;, &quot;https://raw.githubusercontent.com/PureWhiteWings/agm/master/scriptVersion.txt&quot;)
+	
+end</script>
+                    <eventHandlerList>
+                        <string>sysConnectionEvent</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_checkVersionFile</name>
+                    <packageName></packageName>
+                    <script>function agm_checkVersionFile(_, filename)
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Downloading complete!\n&quot;)    -- For debug purposes
+
+  local updateFlag = false
+
+  if not filename:find(&quot;scriptVersion.txt&quot;, 1, true) then
+    return
+  end
+
+  local f, s, remoteVersionString = io.open(filename)
+  if f then
+    remoteVersionString = string.match(f:read(&quot;*a&quot;),&quot;(%d+%.%d+%.%d+)&quot;)
+    io.close(f)
+  end
+
+  local remoteMajorVersion, remoteMinorVersion, remotePatchVersion = string.match(remoteVersionString,&quot;(%d+)%.(%d+)%.(%d+)&quot;)
+  local  localMajorVersion,  localMinorVersion,  localPatchVersion = string.match(agm.scriptVersion,&quot;(%d+)%.(%d+)%.(%d+)&quot;)
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Checking for update...\n&quot;)    -- For debug purposes
+  
+  if remoteMajorVersion &gt; localMajorVersion then
+    updateFlag = true
+  elseif remoteMinorVersion &gt; localMinorVersion then
+    updateFlag = true
+  elseif remotePatchVersion &gt; localPatchVersion then
+    updateFlag = true
+  end
+  
+  if updateFlag then
+	  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Update found! Displaying information...\n&quot;)    -- For debug purposes
+    tempTimer(10.0,[[agm_displayUpdateInformation(&quot;]]..agm.scriptVersion..[[&quot;,&quot;]]..remoteVersionString..[[&quot;)]])
+  else
+	  --cecho(&quot;&lt;white&gt;AGM: &lt;yellow&gt;Update not found!\n&quot;)    -- For debug purposes
+	end
+	
+  os.remove(filename)
+  remoteVersionString = nil
+
+end</script>
+                    <eventHandlerList>
+                        <string>sysDownloadDone</string>
+                    </eventHandlerList>
+                </Script>
+                <Script isActive="yes" isFolder="no">
+                    <name>agm_displayUpdateInformation</name>
+                    <packageName></packageName>
+                    <script>function agm_displayUpdateInformation(currentVersion, newVersion)
+
+ --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Information display started:\n&quot;)      -- For debug purposes
+ 
+ cecho(&quot;\n&lt;white&gt;AGM: &lt;green&gt;An update is available! \(&lt;grey&gt;v&quot;..currentVersion..&quot; &lt;green&gt;-&gt; &lt;grey&gt;v&quot;..newVersion..&quot;&lt;green&gt;\)\n&quot;)
+ cecho(&quot;&lt;white&gt;AGM: &quot;)
+ cechoLink(&quot;&lt;white&gt;Click here to download update&quot;,[[openUrl(&quot;]]..agm.releasesURL..&quot;/v&quot;..newVersion..[[&quot;)]],&quot;&quot;,true)
+ moveCursorEnd()
+ selectString(&quot;Click here to download update&quot;,1)
+ setUnderline(true)
+ resetFormat()
+ echo(&quot;\n\n&quot;)
 
 end</script>
                     <eventHandlerList/>
