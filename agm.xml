@@ -1,0 +1,1502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+    <TriggerPackage>
+        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>Arianwen's Geas Mapper</name>
+            <script></script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName>agm</packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList/>
+            <regexCodePropertyList/>
+            <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>Markpoints</name>
+                <script></script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList/>
+                <regexCodePropertyList/>
+                <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                    <name>Elor entrance</name>
+                    <script>agm.roomNumber = 1216
+agm.area = getRoomArea(agm.roomNumber)
+agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
+centerview(agm.roomNumber)</script>
+                    <triggerType>0</triggerType>
+                    <conditonLineDelta>2</conditonLineDelta>
+                    <mStayOpen>0</mStayOpen>
+                    <mCommand></mCommand>
+                    <packageName></packageName>
+                    <mFgColor>#ff0000</mFgColor>
+                    <mBgColor>#ffff00</mBgColor>
+                    <mSoundFile></mSoundFile>
+                    <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                    <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                    <regexCodeList>
+                        <string> Several man-sized stones stand</string>
+                        <string> Several big ancient stones rise</string>
+                        <string> Runes are inscribed</string>
+                    </regexCodeList>
+                    <regexCodePropertyList>
+                        <integer>2</integer>
+                        <integer>2</integer>
+                        <integer>2</integer>
+                    </regexCodePropertyList>
+                </Trigger>
+            </TriggerGroup>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>Moved</name>
+                <script>------------------------------------------------------------------------
+--     Process exit string for later, ready local tables for use      --
+------------------------------------------------------------------------
+
+local exitString = multimatches[3][2]                                       -- Exit list string, as provided by the game
+local exitTable = string.split(exitString,&quot;, &quot;)                             -- Indexed table of exits
+local exitStringClean = string.gsub(exitString,&quot;%[%w%]&quot;,&quot;&quot;)                 -- Exit list string, with [p] and [r] removed
+local exitTableClean = string.split(exitStringClean,&quot;, &quot;)                   -- Indexed table of exits, with [p] and [r] removed
+local makeNewRoom = false
+local directionTraveled = string.trim(string.lower(multimatches[1][2]))     -- Store the direction that we travelled, for getting new room number
+local directionTraveledAlt = directionTraveled                              -- Store room name, to be stripped of &quot;up&quot; and &quot;down&quot; if a cardinal/ordinal exit
+if directionTraveled ~= &quot;up&quot; and directionTraveled ~= &quot;down&quot; then   -- If it is JUST &quot;up&quot; or &quot;down&quot;, don't take those out!
+  directionTraveledAlt = string.gsub(directionTraveledAlt,&quot;up&quot;,&quot;&quot;)             -- Strip directionTraveledAlt of &quot;up&quot;
+  directionTraveledAlt = string.gsub(directionTraveledAlt,&quot;down&quot;,&quot;&quot;)           -- Strip directionTraveledAlt of &quot;down&quot;
+end
+
+clearWindow(&quot;debugWindow&quot;)                                                  -- Clear the debug window
+
+
+
+
+
+------------------------------------------------------------------------
+--      Set up information about the previous and current rooms       --
+------------------------------------------------------------------------
+
+agm.previousRoomExits  = getRoomExits(agm.roomNumber)      -- Table of exits from the last room, for getting current room number
+
+if agm.roomNumber ~= -1 then                  -- If we knew the last room number, store info about the last room
+  agm.previousRoomNumber = agm.roomNumber
+  agm.previousRoomName   = agm.roomName
+  agm.previousArea       = agm.area
+else                                             -- If we didn't, store -1 and &quot;Unknown&quot; to indicate this
+  agm.previousRoomNumber = -1
+  agm.previousRoomName   = &quot;Unknown&quot;
+  agm.previousArea   = -1
+end
+
+agm.roomNumber = -1                           -- Set current room number to -1, since we don't know it yet!
+agm.roomName = multimatches[2][2]             -- Store captured room name
+
+if string.find(agm.roomName,&quot;%.&quot;) then        -- Strip end period, just in case of a double-period error
+  agm.roomName = string.cut(agm.roomName,string.find(agm.roomName,&quot;%.&quot;)-1)
+end
+
+
+
+
+
+------------------------------------------------------------------------
+--                   Search for room with this name                   --
+------------------------------------------------------------------------
+
+cecho(&quot;debugWindow&quot;,&quot;\n&lt;turquoise&gt;Moved &lt;white&gt;&quot;..directionTraveled..&quot;&lt;turquoise&gt;/&lt;white&gt;&quot;..directionTraveledAlt..&quot;&lt;turquoise&gt;.Searching for room by name...\n&quot;)
+local roomSearchTable = searchRoom(agm.roomName)      -- Search to see if there's only one known room with that name.
+if table.size(roomSearchTable) == 1 and not agm.autocreate then           -- If so, set our position to it.
+  cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Single room found! Setting position!\n&quot;)
+  local tempRoomID = table.maxn(roomSearchTable)
+  centerview(tempRoomID)
+  agm.roomNumber = tempRoomID
+  agm.area = getRoomArea(tempRoomID)
+  agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
+end
+
+
+
+
+
+------------------------------------------------------------------------
+--     Search for current room number from previous room's exits      --
+------------------------------------------------------------------------
+
+if agm.previousRoomExits and agm.roomNumber == -1 then
+  cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Room name not unique or not found!\n&lt;turquoise&gt;Searching previous room for a &lt;white&gt;&quot;..directionTraveledAlt..&quot; &lt;turquoise&gt;exit...\n&quot;)
+  if agm.previousRoomExits[directionTraveledAlt] then
+    cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Exit to this room found! Setting position!\n&quot;)
+    agm.roomNumber = agm.previousRoomExits[directionTraveledAlt]
+    centerview(agm.roomNumber)
+    agm.area = getRoomArea(agm.roomNumber)
+    agm.x, agm.y, agm.z = getRoomCoordinates(agm.roomNumber)
+  end
+end
+
+
+
+
+
+------------------------------------------------------------------------
+--     Search for room by coordinates if number not by room name      --
+------------------------------------------------------------------------
+
+if agm.roomNumber == -1 then
+  cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;No valid exit found in previous room! Adjusting our coordinates and checking the map...\n&quot;)
+  agm.x, agm.y, agm.z = agm_adjustMapperCoordinates(agm.x, agm.y, agm.z, directionTraveled)
+  local searchTable = getRoomsByPosition(agm.area,agm.x,agm.y,agm.z)
+  if table.size(searchTable) &gt; 0 then
+    cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Room found at these coordinates! Setting position!\n&quot;)
+    agm.roomNumber = searchTable[0]
+    agm.area = getRoomArea(agm.roomNumber)
+    centerview(agm.roomNumber)
+  else
+    cecho(&quot;debugWindow&quot;,&quot;&lt;yellow&gt;Room not found at these coordinates, checking if automapper enabled...\n&quot;)
+  end
+end
+
+
+
+
+
+------------------------------------------------------------------------
+--      Room number never found, make new one or mark us as lost      --
+------------------------------------------------------------------------
+
+if agm.roomNumber == -1 then
+  if agm.autocreate then
+    cecho(&quot;debugWindow&quot;,&quot;&lt;green&gt;Automapper enabled! Making new room...\n&quot;)
+    echo(&quot;\nMaking new room: &quot;..agm.previousArea..&quot;, &quot;..agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z)
+    makeNewRoom = true
+  else
+    cecho(&quot;debugWindow&quot;,&quot;&lt;red&gt;Room not found, and not making new one! We're lost! D:&quot;)
+  end
+end
+
+
+
+
+
+------------------------------------------------------------------------
+--           Generate agm.roomExits from known exit info           --
+------------------------------------------------------------------------
+
+agm.roomExits = {}                                       -- Clear the exit list entirely
+local knownRoomExits = getRoomExits(agm.roomNumber)
+
+  for k,v in ipairs(exitTableClean) do    -- Generate list of exits in agm.roomExits from exitTableClean
+
+    if v == &quot;n&quot; then                                     -- v is a short exit name, checking if v is &quot;n&quot;
+      agm.roomExits[#agm.roomExits+1] = {}               -- v is &quot;n&quot;, so make a new subtable entry in agm.roomExits
+      local lastExit = #agm.roomExits                    -- lastExit holds the index of the latest entry in agm.roomExits
+      agm.roomExits[lastExit].long = &quot;north&quot;             -- Store the long name of the exit
+      agm.roomExits[lastExit].short = &quot;n&quot;                -- Store the short name of the exit
+      agm.roomExits[lastExit].altLong = &quot;north&quot;          -- Store the long altname - long exit name with &quot;up&quot; or &quot;down&quot; stripped out.
+      agm.roomExits[lastExit].altShort = &quot;n&quot;             -- Store the short altname - short exit name with &quot;up&quot; or &quot;down&quot; stripped out.
+      if knownRoomExits then
+        if knownRoomExits[&quot;north&quot;] then                                             -- If there is a known room exit to the north...
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]            -- Mark this exit as going to that room number...
+        end                                                                         -- And then move on
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then    -- Checking for &quot;[p]&quot; or &quot;[r]&quot; in equivalent exitTable entry...
+        agm.roomExits[lastExit].road = true                                         -- If either found, mark this exit as a road
+      else                                                                          -- But if we don't find either string...
+        agm.roomExits[lastExit].road = false                                        -- Mark this exit as not being on a road
+      end                                                                           -- Done with this ipair, let's start over on the next k
+
+    elseif v == &quot;nu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northup&quot;
+      agm.roomExits[lastExit].short = &quot;nu&quot;
+      agm.roomExits[lastExit].altLong = &quot;north&quot;
+      agm.roomExits[lastExit].altShort = &quot;n&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;north&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;nd&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northdown&quot;
+      agm.roomExits[lastExit].short = &quot;nd&quot;
+      agm.roomExits[lastExit].altLong = &quot;north&quot;
+      agm.roomExits[lastExit].altShort = &quot;n&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;north&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;north&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;ne&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northeast&quot;
+      agm.roomExits[lastExit].short = &quot;ne&quot;
+      agm.roomExits[lastExit].altLong = &quot;northeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;ne&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;northeast&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;neu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northeastup&quot;
+      agm.roomExits[lastExit].short = &quot;neu&quot;
+      agm.roomExits[lastExit].altLong = &quot;northeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;ne&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;northeast&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;ned&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northeastdown&quot;
+      agm.roomExits[lastExit].short = &quot;ned&quot;
+      agm.roomExits[lastExit].altLong = &quot;northeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;ne&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;northeast&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northeast&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;e&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;east&quot;
+      agm.roomExits[lastExit].short = &quot;e&quot;
+      agm.roomExits[lastExit].altLong = &quot;east&quot;
+      agm.roomExits[lastExit].altShort = &quot;e&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;east&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;eu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;eastup&quot;
+      agm.roomExits[lastExit].short = &quot;eu&quot;
+      agm.roomExits[lastExit].altLong = &quot;east&quot;
+      agm.roomExits[lastExit].altShort = &quot;e&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;east&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;ed&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;eastdown&quot;
+      agm.roomExits[lastExit].short = &quot;ed&quot;
+      agm.roomExits[lastExit].altLong = &quot;east&quot;
+      agm.roomExits[lastExit].altShort = &quot;e&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;east&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;east&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;se&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southeast&quot;
+      agm.roomExits[lastExit].short = &quot;se&quot;
+      agm.roomExits[lastExit].altLong = &quot;southeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;se&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;southast&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;seu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southeastup&quot;
+      agm.roomExits[lastExit].short = &quot;seu&quot;
+      agm.roomExits[lastExit].altLong = &quot;southeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;se&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;southast&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;sed&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southeastdown&quot;
+      agm.roomExits[lastExit].short = &quot;sed&quot;
+      agm.roomExits[lastExit].altLong = &quot;southeast&quot;
+      agm.roomExits[lastExit].altShort = &quot;se&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;southast&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southast&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;s&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;south&quot;
+      agm.roomExits[lastExit].short = &quot;s&quot;
+      agm.roomExits[lastExit].altLong = &quot;south&quot;
+      agm.roomExits[lastExit].altShort = &quot;s&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;south&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;su&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southup&quot;
+      agm.roomExits[lastExit].short = &quot;su&quot;
+      agm.roomExits[lastExit].altLong = &quot;south&quot;
+      agm.roomExits[lastExit].altShort = &quot;s&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;south&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;sd&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southdown&quot;
+      agm.roomExits[lastExit].short = &quot;sd&quot;
+      agm.roomExits[lastExit].altLong = &quot;south&quot;
+      agm.roomExits[lastExit].altShort = &quot;s&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;south&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;south&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;sw&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southwest&quot;
+      agm.roomExits[lastExit].short = &quot;sw&quot;
+      agm.roomExits[lastExit].altLong = &quot;southwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;sw&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;southwest&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;swu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southwestup&quot;
+      agm.roomExits[lastExit].short = &quot;swu&quot;
+      agm.roomExits[lastExit].altLong = &quot;southwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;sw&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;southwest&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;swd&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;southwestdown&quot;
+      agm.roomExits[lastExit].short = &quot;swd&quot;
+      agm.roomExits[lastExit].altLong = &quot;southwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;sw&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;southwest&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;southwest&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;w&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;west&quot;
+      agm.roomExits[lastExit].short = &quot;w&quot;
+      agm.roomExits[lastExit].altLong = &quot;west&quot;
+      agm.roomExits[lastExit].altShort = &quot;w&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;west&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;wu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;westup&quot;
+      agm.roomExits[lastExit].short = &quot;wu&quot;
+      agm.roomExits[lastExit].altLong = &quot;west&quot;
+      agm.roomExits[lastExit].altShort = &quot;w&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;west&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;wd&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;westdown&quot;
+      agm.roomExits[lastExit].short = &quot;wd&quot;
+      agm.roomExits[lastExit].altLong = &quot;west&quot;
+      agm.roomExits[lastExit].altShort = &quot;w&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;west&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;west&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;nw&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northwest&quot;
+      agm.roomExits[lastExit].short = &quot;nw&quot;
+      agm.roomExits[lastExit].altLong = &quot;northwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;nw&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;northwest&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;nwu&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northwestup&quot;
+      agm.roomExits[lastExit].short = &quot;nwu&quot;
+      agm.roomExits[lastExit].altLong = &quot;northwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;nw&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;northwest&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;nwd&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;northwestdown&quot;
+      agm.roomExits[lastExit].short = &quot;nwd&quot;
+      agm.roomExits[lastExit].altLong = &quot;northwest&quot;
+      agm.roomExits[lastExit].altShort = &quot;nw&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;northwest&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;northwest&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;u&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;up&quot;
+      agm.roomExits[lastExit].short = &quot;u&quot;
+      agm.roomExits[lastExit].altLong = &quot;up&quot;
+      agm.roomExits[lastExit].altShort = &quot;u&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;up&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;up&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;d&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;down&quot;
+      agm.roomExits[lastExit].short = &quot;d&quot;
+      agm.roomExits[lastExit].altLong = &quot;down&quot;
+      agm.roomExits[lastExit].altShort = &quot;d&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;down&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;down&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;in&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;in&quot;
+      agm.roomExits[lastExit].short = &quot;in&quot;
+      agm.roomExits[lastExit].altLong = &quot;in&quot;
+      agm.roomExits[lastExit].altShort = &quot;in&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;in&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;in&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    elseif v == &quot;out&quot; then
+      agm.roomExits[#agm.roomExits+1] = {}
+      local lastExit = #agm.roomExits
+      agm.roomExits[lastExit].long = &quot;out&quot;
+      agm.roomExits[lastExit].short = &quot;out&quot;
+      agm.roomExits[lastExit].altLong = &quot;out&quot;
+      agm.roomExits[lastExit].altShort = &quot;out&quot;
+      if knownRoomExits then
+        if knownRoomExits[&quot;out&quot;] then
+          agm.roomExits[lastExit].toRoomNumber = knownRoomExits[&quot;out&quot;]
+        end
+      end
+      if string.find(exitTable[k],&quot;[r]&quot;) or string.find(exitTable[k],&quot;[p]&quot;) then
+        agm.roomExits[lastExit].road = true
+      else
+        agm.roomExits[lastExit].road = false
+      end
+
+    end
+
+  end
+
+
+
+
+
+------------------------------------------------------------------------
+--                       Automapping extra bits                       --
+------------------------------------------------------------------------
+
+if agm.autocreate then                               -- Set room colour by environment
+  if makeNewRoom then                                   -- Was the flag set to make a new room?
+    local createdRoom = agm_maproom(agm.previousArea, agm.x, agm.y, agm.z)
+    agm.roomNumber = createdRoom
+    agm.area = getRoomArea(createdRoom)
+  end
+  local loweredName = string.lower(agm.roomName)     -- This guesses environment by room name - NOT ALWAYS ACCURATE
+  if string.find(multimatches[3][1],&quot;%[r%]&quot;) or string.find(multimatches[3][1],&quot;%[p%]&quot;) then
+    setRoomEnv(agm.roomNumber,262)                   -- Dark cyan for roads and paths, always
+  elseif string.find(loweredName,&quot;meadow&quot;) then
+    setRoomEnv(agm.roomNumber,266)                   -- Light green for grasses and meadows
+  elseif string.find(loweredName,&quot;forest&quot;) then
+    setRoomEnv(agm.roomNumber,258)                   -- Dark green for forests
+  elseif string.find(loweredName,&quot;sand&quot;) or string.find(loweredName,&quot;beach&quot;) or string.find(loweredName,&quot;coastline&quot;) then
+    setRoomEnv(agm.roomNumber,267)                   -- Bright yellow for beaches
+  elseif string.find(loweredName,&quot;tundra&quot;) then
+    setRoomEnv(agm.roomNumber,259)                   -- Dark yellow for tundra
+  elseif string.find(loweredName,&quot;tunnel&quot;) then
+    setRoomEnv(agm.roomNumber,272)                   -- Dark grey for tunnels
+  elseif string.find(loweredName,&quot;arctic&quot;) then
+    setRoomEnv(agm.roomNumber,271)                   -- White for arctic
+  end
+end
+
+if agm.autoexits then                                -- Automatically connect exit stubs to nearby stubs
+  local stubs = getExitStubs(agm.roomNumber)         -- This is NOT always reliable, best not to do it next to unknown rooms
+  if stubs then
+    for i,v in pairs(stubs) do
+      connectExitStub(agm.roomNumber, v)
+    end
+  end
+end
+
+--agm_displayCoords()</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>8</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^You travel a .+ distance (\w+)</string>
+                    <string>^(?!It's|You travel|A closed wooden|An open wooden|You are)(.*)\.$</string>
+                    <string>^Exit(?:s\(\d+\))?:\s+([^.]+?)\.?$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+        </TriggerGroup>
+    </TriggerPackage>
+    <TimerPackage/>
+    <AliasPackage>
+        <AliasGroup isActive="yes" isFolder="yes">
+            <name>Arianwen's Geas Mapper</name>
+            <script></script>
+            <command></command>
+            <packageName>agm</packageName>
+            <regex></regex>
+            <Alias isActive="yes" isFolder="no">
+                <name>Add area</name>
+                <script>local newId, err = addAreaName(matches[2])
+ 
+if newId == nil or newId &lt; 1 or err then
+  echo(&quot;That area name could not be added - error is: &quot;.. err..&quot;\n\n&quot;)
+else
+  cecho(&quot;&lt;green&gt;Created new area with the ID of &quot;..newId..&quot;.\n\n&quot;)
+end</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^aaddarea\s+(\w.+?)\s*$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Add room</name>
+                <script>agm_maproom(matches[2],matches[3],matches[4],matches[5])</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^aaddroom\s+(\d+)\s+(\S+),(\S+),(\S+)\s*$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Automap toggle</name>
+                <script>if not agm.autocreate then
+  agm.autocreate = true
+  echo(&quot;AUTO-MAPPER ON\n\n&quot;)
+else
+  agm.autocreate = false
+  echo(&quot;AUTO-MAPPER OFF\n\n&quot;)
+end</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^aautomap$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Autoexit toggle</name>
+                <script>if not agm.autoexits then
+  agm.autoexits = true
+  echo(&quot;AUTO-EXITS ON\n\n&quot;)
+else
+  agm.autoexits = false
+  echo(&quot;AUTO-EXITS OFF\n\n&quot;)
+end</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^aautoexits$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Set position manually</name>
+                <script>agm_setMapPosition(tonumber(matches[2]))</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^asetpos\s+(\d+)$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Connect exit stub</name>
+                <script>local direction  = string.lower(matches[2])
+local currentRoomNumber = agm.roomNumber
+
+connectExitStub(currentRoomNumber,direction)
+centerview(currentRoomNumber)</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^amapstub\s+(\w+)\s*$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Connect all stubs in room</name>
+                <script>local stubs = getExitStubs(agm.roomNumber)
+if stubs then
+  for i,v in pairs(stubs) do
+    connectExitStub(agm.roomNumber, v)
+  end
+end
+
+centerview(agm.roomNumber)</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^amapstubs$</regex>
+            </Alias>
+            <Alias isActive="yes" isFolder="no">
+                <name>Connect all stubs in area</name>
+                <script>local roomList = getAreaRooms(agm.area)
+
+for k,v in ipairs(roomList) do
+  local roomNumber = v
+  local stubs = getExitStubs(roomNumber)
+  if stubs then
+    for i,dir in pairs(stubs) do
+      connectExitStub(roomNumber, dir)
+    end
+  end
+end
+
+centerview(agm.roomNumber)</script>
+                <command></command>
+                <packageName></packageName>
+                <regex>^amapareastubs$</regex>
+            </Alias>
+        </AliasGroup>
+    </AliasPackage>
+    <ActionPackage/>
+    <ScriptPackage>
+        <ScriptGroup isActive="yes" isFolder="yes">
+            <name>Arianwen's Geas Mapper</name>
+            <packageName>agm</packageName>
+            <script></script>
+            <eventHandlerList/>
+            <Script isActive="yes" isFolder="no">
+                <name>Mapper init</name>
+                <packageName></packageName>
+                <script>mudlet = mudlet or {}
+mudlet.mapper_script = true
+
+agm    = agm or {}
+room   = room or {}
+
+agm.scriptVersion = &quot;0.3.1&quot;
+agm.issueURL    = [[http://github.com/PureWhiteWings/agm/issues]]
+agm.releasesURL = [[http://github.com/PureWhiteWings/agm/releases/tag]]
+
+---------------------------------------------------------------
+
+agm.exitmap = {
+  [&quot;n&quot;] = 1,
+  [&quot;north&quot;] = 1,
+  [&quot;ne&quot;] = 2,
+  [&quot;northeast&quot;] = 2,
+  [&quot;nw&quot;] = 3,
+  [&quot;northwest&quot;] = 3,
+  [&quot;e&quot;] = 4,
+  [&quot;east&quot;] = 4,
+  [&quot;w&quot;] = 5,
+  [&quot;west&quot;] = 5,
+  [&quot;s&quot;] = 6,
+  [&quot;south&quot;] = 6,
+  [&quot;se&quot;] = 7,
+  [&quot;southeast&quot;] = 7,
+  [&quot;sw&quot;] = 8,
+  [&quot;southwest&quot;] = 8,
+  [&quot;u&quot;] = 9,
+  [&quot;up&quot;] = 9,
+  [&quot;d&quot;] = 10,
+  [&quot;down&quot;] = 10,
+  [&quot;in&quot;] = 11,
+  [&quot;out&quot;] = 12,
+  [&quot;northup&quot;] = 13,
+  [&quot;nu&quot;] = 13,
+  [&quot;northdown&quot;] = 14,
+  [&quot;nd&quot;] = 14,
+  [&quot;northeastup&quot;] = 15,
+  [&quot;neu&quot;] = 15,
+  [&quot;northeastdown&quot;] = 16,
+  [&quot;ned&quot;] = 16,
+  [&quot;eastup&quot;] = 17,
+  [&quot;eu&quot;] = 17,
+  [&quot;eastdown&quot;] = 18,
+  [&quot;ed&quot;] = 18,
+  [&quot;southeastup&quot;] = 19,
+  [&quot;seu&quot;] = 19,
+  [&quot;southeastdown&quot;] = 20,
+  [&quot;sed&quot;] = 20,
+  [&quot;southup&quot;] = 21,
+  [&quot;su&quot;] = 21,
+  [&quot;southdown&quot;] = 22,
+  [&quot;sd&quot;] = 22,
+  [&quot;southwestup&quot;] = 23,
+  [&quot;swu&quot;] = 23,
+  [&quot;southwestdown&quot;] = 24,
+  [&quot;swd&quot;] = 24,
+  [&quot;westup&quot;] = 25,
+  [&quot;wu&quot;] = 25,
+  [&quot;westdown&quot;] = 26,
+  [&quot;wd&quot;] = 26,
+  [&quot;northtwestup&quot;] = 27,
+  [&quot;nwu&quot;] = 27,
+  [&quot;northwestdown&quot;] = 28,
+  [&quot;nwd&quot;] = 28,
+  [1] = &quot;north&quot;,
+  [2] = &quot;northeast&quot;,
+  [3] = &quot;northwest&quot;,
+  [4] = &quot;east&quot;,
+  [5] = &quot;west&quot;,
+  [6] = &quot;south&quot;,
+  [7] = &quot;southeast&quot;,
+  [8] = &quot;southwest&quot;,
+  [9] = &quot;up&quot;,
+  [10] = &quot;down&quot;,
+  [11] = &quot;in&quot;,
+  [12] = &quot;out&quot;,
+  [13] = &quot;northup&quot;,
+  [14] = &quot;northdown&quot;,
+  [15] = &quot;northeastup&quot;,
+  [16] = &quot;northeastdown&quot;,
+  [17] = &quot;eastup&quot;,
+  [18] = &quot;eastdown&quot;,
+  [19] = &quot;southeastup&quot;,
+  [20] = &quot;southeastdown&quot;,
+  [21] = &quot;southup&quot;,
+  [22] = &quot;southdown&quot;,
+  [23] = &quot;southwestup&quot;,
+  [24] = &quot;southwestdown&quot;,
+  [25] = &quot;westup&quot;,
+  [26] = &quot;westdown&quot;,
+  [27] = &quot;northtwestup&quot;,
+  [28] = &quot;northwestdown&quot;,
+}</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_installed</name>
+                <packageName></packageName>
+                <script>function agm_installed(_, packageName, fileName)
+
+  if packageName == &quot;agm&quot; then
+	  agm_loadMap()
+	end
+
+end</script>
+                <eventHandlerList>
+                    <string>sysInstallPackage</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_loadMap</name>
+                <packageName></packageName>
+                <script>function agm_loadMap()
+
+  local loadedOK = loadMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
+  if not loadedOK then
+    cecho(&quot;&lt;red&gt;Error - agm_loadMap()\n&quot;)
+    cecho(&quot;&lt;orange&gt;Please submit this error data at: &quot;)
+    cechoLink(&quot;&lt;white&gt;&quot;..agm.issueURL,[[openUrl(&quot;]]..agm.issueURL..[[&quot;)]],&quot;&quot;,true)
+    moveCursorEnd()
+		selectString(agm.issueURL,1)
+		setUnderline(true)
+	  resetFormat()
+		echo(&quot;\n\n&quot;)
+  elseif loadedOK then
+	  agm.mapVersion = getMapUserData(&quot;version&quot;)
+		raiseEvent(&quot;agm map loaded&quot;)
+	end
+
+end</script>
+                <eventHandlerList>
+                    <string>sysLoadEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_saveMap</name>
+                <packageName></packageName>
+                <script>function agm_saveMap()
+
+  local savedOK = saveMap(getMudletHomeDir()..&quot;/AGM/ArianwenGeasMap.dat&quot;)
+  if not savedOK then
+    cecho(&quot;&lt;red&gt;Error - agm_saveMap()\n&quot;)
+    cecho(&quot;&lt;orange&gt;Please submit this error data at: &quot;)
+    cechoLink(&quot;&lt;white&gt;&quot;..agm.issueURL,[[openUrl(&quot;]]..agm.issueURL..[[&quot;)]],&quot;&quot;,true)
+    moveCursorEnd()
+		selectString(agm.issueURL,1)
+		setUnderline(true)
+	  resetFormat()
+		echo(&quot;\n\n&quot;)
+  elseif savedOK then
+		raiseEvent(&quot;agm map saved&quot;)
+	end
+
+end</script>
+                <eventHandlerList>
+                    <string>sysExitEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_adjustMapperCoordinates</name>
+                <packageName></packageName>
+                <script>  function agm_adjustMapperCoordinates(inputx, inputy, inputz, inputDirection)
+
+  local outputx = inputx
+  local outputy = inputy
+  local outputz = inputz
+
+  if inputDirection == &quot;n&quot; or inputDirection == &quot;north&quot; then
+    outputy = outputy + 1
+  elseif inputDirection == &quot;ne&quot; or inputDirection == &quot;northeast&quot; then
+    outputx = outputx + 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;e&quot; or inputDirection == &quot;east&quot; then
+    outputx = outputx + 1
+  elseif inputDirection == &quot;se&quot; or inputDirection == &quot;southeast&quot; then
+    outputx = outputx + 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;s&quot; or inputDirection == &quot;south&quot; then
+    outputy = outputy - 1
+  elseif inputDirection == &quot;sw&quot; or inputDirection == &quot;southwest&quot; then
+    outputx = outputx - 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;w&quot; or inputDirection == &quot;west&quot; then
+    outputx = outputx - 1
+  elseif inputDirection == &quot;nw&quot; or inputDirection == &quot;northwest&quot; then
+    outputx = outputx - 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;u&quot; or inputDirection == &quot;up&quot; then
+    outputz = outputz + 1
+  elseif inputDirection == &quot;d&quot; or inputDirection == &quot;down&quot; then
+    outputz = outputz - 1
+  elseif inputDirection == &quot;n&quot; or inputDirection == &quot;north&quot; then
+    outputy = outputy + 1
+  elseif inputDirection == &quot;nu&quot; or inputDirection == &quot;northup&quot; then
+    --outputz = outputz + 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;nd&quot; or inputDirection == &quot;northdown&quot; then
+    --outputz = outputz - 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;ne&quot; or inputDirection == &quot;northeast&quot; then
+    outputx = outputx + 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;neu&quot; or inputDirection == &quot;northeastup&quot; then
+    --outputz = outputz + 1
+    outputx = outputx + 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;ned&quot; or inputDirection == &quot;northeastdown&quot; then
+    --outputz = outputz - 1
+    outputx = outputx + 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;e&quot; or inputDirection == &quot;east&quot; then
+    outputx = outputx + 1
+  elseif inputDirection == &quot;eu&quot; or inputDirection == &quot;eastup&quot; then
+    --outputz = outputz + 1
+    outputx = outputx + 1
+  elseif inputDirection == &quot;ed&quot; or inputDirection == &quot;eastdown&quot; then
+    --outputz = outputz - 1
+    outputx = outputx + 1
+  elseif inputDirection == &quot;se&quot; or inputDirection == &quot;southeast&quot; then      
+    outputx = outputx + 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;seu&quot; or inputDirection == &quot;southeastup&quot; then
+    --outputz = outputz + 1
+    outputx = outputx + 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;sed&quot; or inputDirection == &quot;southeastdown&quot; then
+    --outputz = outputz - 1
+    outputx = outputx + 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;s&quot; or inputDirection == &quot;south&quot; then
+    outputy = outputy - 1
+  elseif inputDirection == &quot;su&quot; or inputDirection == &quot;southup&quot; then
+    --outputz = outputz + 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;sd&quot; or inputDirection == &quot;southdown&quot; then
+    --outputz = outputz - 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;sw&quot; or inputDirection == &quot;southwest&quot; then
+    outputx = outputx - 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;swu&quot; or inputDirection == &quot;southwestup&quot; then
+    --outputz = outputz + 1
+    outputx = outputx - 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;swd&quot; or inputDirection == &quot;southwestdown&quot; then
+    --outputz = outputz - 1
+    outputx = outputx - 1
+    outputy = outputy - 1
+  elseif inputDirection == &quot;w&quot; or inputDirection == &quot;west&quot; then
+    outputx = outputx - 1
+  elseif inputDirection == &quot;wu&quot; or inputDirection == &quot;westup&quot; then
+    --outputz = outputz + 1
+    outputx = outputx - 1
+  elseif inputDirection == &quot;wd&quot; or inputDirection == &quot;westdown&quot; then
+    --outputz = outputz - 1
+    outputx = outputx - 1
+  elseif inputDirection == &quot;nw&quot; or inputDirection == &quot;northwest&quot; then
+    outputx = outputx - 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;nwu&quot; or inputDirection == &quot;northwestup&quot; then
+    --outputz = outputz + 1
+    outputx = outputx - 1
+    outputy = outputy + 1
+  elseif inputDirection == &quot;nwd&quot; or inputDirection == &quot;northwestdown&quot; then
+    --outputz = outputz - 1
+    outputx = outputx - 1
+    outputy = outputy + 1
+  end
+
+  return outputx, outputy, outputz
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_maproom</name>
+                <packageName></packageName>
+                <script>function agm_maproom(roomArea, roomX, roomY, roomZ)
+
+  local area = tonumber(matches[2])
+  local x = tonumber(matches[3])
+  local y = tonumber(matches[4])
+  local z = tonumber(matches[5])
+  local newRoomNumber = createRoomID()
+  local validExits = {&quot;n&quot;,&quot;ne&quot;,&quot;e&quot;,&quot;se&quot;,&quot;s&quot;,&quot;sw&quot;,&quot;w&quot;,&quot;nw&quot;,&quot;in&quot;,&quot;out&quot;,&quot;u&quot;,&quot;d&quot;}
+  local comboExits = {&quot;nu&quot;, &quot;nd&quot;, &quot;neu&quot;, &quot;ned&quot;, &quot;eu&quot;, &quot;ed&quot;, &quot;seu&quot;, &quot;sed&quot;, &quot;su&quot;, &quot;sd&quot;, &quot;swu&quot;, &quot;swd&quot;, &quot;wu&quot;, &quot;wd&quot;, &quot;nwu&quot;, &quot;nwd&quot;}
+
+  if agm.roomName then
+   if addRoom(newRoomNumber) == true then
+
+      for k,v in ipairs(agm.roomExits) do
+        if table.contains(validExits,v.altShort) then
+          setExitStub(newRoomNumber, v.altShort, true)
+        end
+      end
+
+      setRoomCoordinates(newRoomNumber, roomX, roomY, roomZ) 
+      setRoomArea(newRoomNumber,roomArea)
+      setRoomName(newRoomNumber,agm.roomName)
+      agm.x = roomX
+      agm.y = roomY
+      agm.z = roomZ
+      agm.area = roomArea
+      centerview(newRoomNumber)
+
+      return newRoomNumber
+
+    else
+
+      cecho(&quot;&lt;orange&gt;Error!\n\n&quot;)
+
+    end
+  end
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_setPositionViaMenu</name>
+                <packageName></packageName>
+                <script>function agm_setPositionViaMenu(_, roomNumber)
+
+  agm_setMapPosition(roomNumber)
+
+end</script>
+                <eventHandlerList>
+                    <string>sysManualLocationSetEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_setMapPosition</name>
+                <packageName></packageName>
+                <script>function agm_setMapPosition(roomNumber)
+
+  agm.roomNumber = roomNumber
+  agm.area = getRoomArea(roomNumber)
+  agm.x, agm.y, agm.z = getRoomCoordinates(roomNumber)
+  agm.roomName = getRoomName(roomNumber)
+
+  centerview(roomNumber)
+  --agm_displayCoords()
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_displayCoords</name>
+                <packageName></packageName>
+                <script>function agm_displayCoords()
+
+  coordsConsole:clear() 
+  echo(&quot;coordsConsole&quot;,&quot;Area &quot;..agm.area..&quot;: &quot;..getRoomAreaName(agm.area)..&quot;\n&quot;)
+  echo(&quot;coordsConsole&quot;,agm.x..&quot;, &quot;..agm.y..&quot;, &quot;..agm.z..&quot; (&quot;..agm.roomNumber..&quot;)&quot;)
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_loadPlayerData</name>
+                <packageName></packageName>
+                <script>function agm_loadPlayerData()
+
+  agm = agm or {}
+	--cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Loading user data.\n\n&quot;)
+	table.load(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
+  agm_setMapPosition(agm.roomNumber)
+
+end</script>
+                <eventHandlerList>
+                    <string>agm map loaded</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_savePlayerData</name>
+                <packageName></packageName>
+                <script>function agm_savePlayerData()
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Saving user data.\n\n&quot;)
+  table.save(getMudletHomeDir()..&quot;/agm/saveData.lua&quot;, agm)
+
+end</script>
+                <eventHandlerList>
+                    <string>sysDisconnectionEvent</string>
+                    <string>sysExitEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="no" isFolder="no">
+                <name>agm_invertDirectionLong</name>
+                <packageName></packageName>
+                <script>function agm_invertDirectionLong(direction)
+
+  local direction = string.lower(direction)
+
+  if direction == &quot;north&quot; or direction == &quot;n&quot; then
+    return &quot;south&quot;
+  elseif direction == &quot;northup&quot; or direction == &quot;nu&quot; then
+    return &quot;southdown&quot;
+  elseif direction == &quot;northdown&quot; or direction == &quot;nd&quot; then
+    return &quot;southup&quot;
+  elseif direction == &quot;northeast&quot; or direction == &quot;ne&quot; then
+    return &quot;southwest&quot;
+  elseif direction == &quot;northeastup&quot; or direction == &quot;neu&quot; then
+    return &quot;southwestdown&quot;
+  elseif direction == &quot;northeastdown&quot; or direction == &quot;ned&quot; then
+    return &quot;southwestup&quot;
+  elseif direction == &quot;east&quot; or direction == &quot;e&quot; then
+    return &quot;west&quot;
+  elseif direction == &quot;eastup&quot; or direction == &quot;eu&quot; then
+    return &quot;westdown&quot;
+  elseif direction == &quot;eastdown&quot; or direction == &quot;ed&quot; then
+    return &quot;westup&quot;
+  elseif direction == &quot;southeast&quot; or direction == &quot;se&quot; then
+    return &quot;northwest&quot;
+  elseif direction == &quot;southeastup&quot; or direction == &quot;seu&quot; then
+    return &quot;northwestdown&quot;
+  elseif direction == &quot;southeastdown&quot; or direction == &quot;sed&quot; then
+    return &quot;northwestup&quot;
+  elseif direction == &quot;south&quot; or direction == &quot;s&quot; then
+    return &quot;north&quot;
+  elseif direction == &quot;southup&quot; or direction == &quot;su&quot; then
+    return &quot;northdown&quot;
+  elseif direction == &quot;southdown&quot; or direction == &quot;sd&quot; then
+    return &quot;northup&quot;
+  elseif direction == &quot;southwest&quot; or direction == &quot;sw&quot; then
+    return &quot;northeast&quot;
+  elseif direction == &quot;southwestup&quot; or direction == &quot;swu&quot; then
+    return &quot;northeastdown&quot;
+  elseif direction == &quot;southwestdown&quot; or direction == &quot;swd&quot; then
+    return &quot;northeastup&quot;
+  elseif direction == &quot;west&quot; or direction == &quot;w&quot; then
+    return &quot;east&quot;
+  elseif direction == &quot;westup&quot; or direction == &quot;wu&quot; then
+    return &quot;eastdown&quot;
+  elseif direction == &quot;westdown&quot; or direction == &quot;wd&quot; then
+    return &quot;eastup&quot;
+  elseif direction == &quot;northwest&quot; or direction == &quot;nw&quot; then
+    return &quot;southeast&quot;
+  elseif direction == &quot;northwestup&quot; or direction == &quot;nwu&quot; then
+    return &quot;southeastdown&quot;
+  elseif direction == &quot;northwestdown&quot; or direction == &quot;nwd&quot; then
+    return &quot;southeastup&quot;
+  elseif direction == &quot;up&quot; or direction == &quot;u&quot; then
+    return &quot;down&quot;
+  elseif direction == &quot;down&quot; or direction == &quot;d&quot; then
+    return &quot;up&quot;
+  elseif direction == &quot;in&quot; or direction == &quot;i&quot; then
+    return &quot;out&quot;
+  elseif direction == &quot;out&quot; or direction == &quot;o&quot; then
+    return &quot;in&quot;
+  else
+    return -1
+  end    
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="no" isFolder="no">
+                <name>agm_invertDirectionShort</name>
+                <packageName></packageName>
+                <script>function agm_invertDirectionShort(direction)
+
+  local direction = string.lower(direction)
+
+  if direction == &quot;north&quot; or direction == &quot;n&quot; then
+    return &quot;s&quot;
+  elseif direction == &quot;northup&quot; or direction == &quot;nu&quot; then
+    return &quot;sd&quot;
+  elseif direction == &quot;northdown&quot; or direction == &quot;nd&quot; then
+    return &quot;su&quot;
+  elseif direction == &quot;northeast&quot; or direction == &quot;ne&quot; then
+    return &quot;sw&quot;
+  elseif direction == &quot;northeastup&quot; or direction == &quot;neu&quot; then
+    return &quot;swd&quot;
+  elseif direction == &quot;northeastdown&quot; or direction == &quot;ned&quot; then
+    return &quot;swu&quot;
+  elseif direction == &quot;east&quot; or direction == &quot;e&quot; then
+    return &quot;w&quot;
+  elseif direction == &quot;eastup&quot; or direction == &quot;eu&quot; then
+    return &quot;wd&quot;
+  elseif direction == &quot;eastdown&quot; or direction == &quot;ed&quot; then
+    return &quot;wu&quot;
+  elseif direction == &quot;southeast&quot; or direction == &quot;se&quot; then
+    return &quot;nw&quot;
+  elseif direction == &quot;southeastup&quot; or direction == &quot;seu&quot; then
+    return &quot;nwd&quot;
+  elseif direction == &quot;southeastdown&quot; or direction == &quot;sed&quot; then
+    return &quot;nwu&quot;
+  elseif direction == &quot;south&quot; or direction == &quot;s&quot; then
+    return &quot;n&quot;
+  elseif direction == &quot;southup&quot; or direction == &quot;su&quot; then
+    return &quot;nd&quot;
+  elseif direction == &quot;southdown&quot; or direction == &quot;sd&quot; then
+    return &quot;nu&quot;
+  elseif direction == &quot;southwest&quot; or direction == &quot;sw&quot; then
+    return &quot;ne&quot;
+  elseif direction == &quot;southwestup&quot; or direction == &quot;swu&quot; then
+    return &quot;ned&quot;
+  elseif direction == &quot;southwestdown&quot; or direction == &quot;swd&quot; then
+    return &quot;neu&quot;
+  elseif direction == &quot;west&quot; or direction == &quot;w&quot; then
+    return &quot;e&quot;
+  elseif direction == &quot;westup&quot; or direction == &quot;wu&quot; then
+    return &quot;ed&quot;
+  elseif direction == &quot;westdown&quot; or direction == &quot;wd&quot; then
+    return &quot;eu&quot;
+  elseif direction == &quot;northwest&quot; or direction == &quot;nw&quot; then
+    return &quot;se&quot;
+  elseif direction == &quot;northwestup&quot; or direction == &quot;nwu&quot; then
+    return &quot;sed&quot;
+  elseif direction == &quot;northwestdown&quot; or direction == &quot;nwd&quot; then
+    return &quot;seu&quot;
+  elseif direction == &quot;up&quot; or direction == &quot;u&quot; then
+    return &quot;d&quot;
+  elseif direction == &quot;down&quot; or direction == &quot;d&quot; then
+    return &quot;u&quot;
+  elseif direction == &quot;in&quot; or direction == &quot;i&quot; then
+    return &quot;out&quot;
+  elseif direction == &quot;out&quot; or direction == &quot;o&quot; then
+    return &quot;in&quot;
+  else
+    return -1
+  end    
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_downloadVersionFile</name>
+                <packageName></packageName>
+                <script>function agm_downloadVersionFile()
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Downloading version file...\n&quot;)     -- For debug purposes
+  downloadFile(getMudletHomeDir()..&quot;/agm/scriptVersion.txt&quot;, &quot;https://raw.githubusercontent.com/PureWhiteWings/agm/master/scriptVersion.txt&quot;)
+	
+end</script>
+                <eventHandlerList>
+                    <string>sysConnectionEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_checkVersionFile</name>
+                <packageName></packageName>
+                <script>function agm_checkVersionFile(_, filename)
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Downloading complete!\n&quot;)    -- For debug purposes
+
+  local updateFlag = false
+
+  if not filename:find(&quot;scriptVersion.txt&quot;, 1, true) then
+    return
+  end
+
+  local f, s, remoteVersionString = io.open(filename)
+  if f then
+    remoteVersionString = string.match(f:read(&quot;*a&quot;),&quot;(%d+%.%d+%.%d+)&quot;)
+    io.close(f)
+  end
+
+  local remoteMajorVersion, remoteMinorVersion, remotePatchVersion = string.match(remoteVersionString,&quot;(%d+)%.(%d+)%.(%d+)&quot;)
+  local  localMajorVersion,  localMinorVersion,  localPatchVersion = string.match(agm.scriptVersion,&quot;(%d+)%.(%d+)%.(%d+)&quot;)
+
+  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Checking for update...\n&quot;)    -- For debug purposes
+  
+  if remoteMajorVersion &gt; localMajorVersion then
+    updateFlag = true
+  elseif remoteMinorVersion &gt; localMinorVersion then
+    updateFlag = true
+  elseif remotePatchVersion &gt; localPatchVersion then
+    updateFlag = true
+  end
+  
+  if updateFlag then
+	  --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Update found! Displaying information...\n&quot;)    -- For debug purposes
+    tempTimer(10.0,[[agm_displayUpdateInformation(&quot;]]..agm.scriptVersion..[[&quot;,&quot;]]..remoteVersionString..[[&quot;)]])
+  else
+	  --cecho(&quot;&lt;white&gt;AGM: &lt;yellow&gt;Update not found!\n&quot;)    -- For debug purposes
+	end
+	
+  os.remove(filename)
+  remoteVersionString = nil
+
+end</script>
+                <eventHandlerList>
+                    <string>sysDownloadDone</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>agm_displayUpdateInformation</name>
+                <packageName></packageName>
+                <script>function agm_displayUpdateInformation(currentVersion, newVersion)
+
+ --cecho(&quot;&lt;white&gt;AGM: &lt;green&gt;Information display started:\n&quot;)      -- For debug purposes
+ 
+ cecho(&quot;\n&lt;white&gt;AGM: &lt;green&gt;An update is available! \(&lt;grey&gt;v&quot;..currentVersion..&quot; &lt;green&gt;-&gt; &lt;grey&gt;v&quot;..newVersion..&quot;&lt;green&gt;\)\n&quot;)
+ cecho(&quot;&lt;white&gt;AGM: &quot;)
+ cechoLink(&quot;&lt;white&gt;Click here to download update&quot;,[[openUrl(&quot;]]..agm.releasesURL..&quot;/v&quot;..newVersion..[[&quot;)]],&quot;&quot;,true)
+ moveCursorEnd()
+ selectString(&quot;Click here to download update&quot;,1)
+ setUnderline(true)
+ resetFormat()
+ echo(&quot;\n\n&quot;)
+
+end</script>
+                <eventHandlerList/>
+            </Script>
+        </ScriptGroup>
+    </ScriptPackage>
+    <KeyPackage/>
+</MudletPackage>
