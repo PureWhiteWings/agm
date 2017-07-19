@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bruth/jekyll-docs-template/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
-Read the docs: http://bruth.github.io/jekyll-docs-template
-=======
 ## Arianwen's Geas Mapper
 
 Full documentation: http://purewhitewings.github.io/agm/
@@ -12,4 +7,3 @@ A Mudlet mapping package for use with [Geas](http://www.geas.de). Provides both 
 Map included in package, will likely move to a remotely-sourced map in the future.
 
 **Requires Mudlet 3.0.1 or above.**
->>>>>>> refs/remotes/origin/master
